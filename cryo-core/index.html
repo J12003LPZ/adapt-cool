@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CRYO-CORE — Predictive AI-driven cooling for consumer desktops, gaming rigs, and workstations. Self-learning algorithms, eco modes, and a desktop &amp; cloud platform companion." />
+  <title>CRYO-CORE — ADAPT // COOL</title>
+
+  <!-- GitHub Pages project-path support -->
+  <script>
+    (function () {
+      var projectName = 'stitch_next_gen_cpu_cooling';
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var fileName = segments[segments.length - 1] || '';
+      var projectIndex = segments.indexOf(projectName);
+      var hasFileName = fileName.indexOf('.') !== -1;
+      var basePath;
+
+      if (projectIndex !== -1 && !hasFileName && segments.length > projectIndex + 1) {
+        basePath = '/' + segments.slice(0, projectIndex + 1).join('/') + '/';
+      } else if (path.endsWith('/')) {
+        basePath = path;
+      } else if (!hasFileName) {
+        basePath = path + '/';
+      } else {
+        basePath = path.slice(0, path.lastIndexOf('/') + 1);
+      }
+
+      var base = document.createElement('base');
+      base.href = basePath;
+      document.head.insertBefore(base, document.head.firstChild);
+    }());
+  </script>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#849495",
+            "primary-fixed-dim": "#00dbe9",
+            "on-background": "#d9e2ff",
+            "on-secondary-fixed": "#001257",
+            "secondary-fixed-dim": "#b9c3ff",
+            "on-primary-fixed": "#002022",
+            "on-error": "#690005",
+            "surface-container": "#151f37",
+            "primary-fixed": "#7df4ff",
+            "outline-variant": "#3b494b",
+            "inverse-on-surface": "#263049",
+            "surface-container-highest": "#2a344e",
+            "surface-container-low": "#101b33",
+            "secondary-fixed": "#dde1ff",
+            "on-surface": "#d9e2ff",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed-variant": "#0033c0",
+            "inverse-primary": "#006970",
+            "tertiary-fixed-dim": "#b9c7e4",
+            "surface-container-high": "#1f2942",
+            "on-tertiary": "#233148",
+            "error-container": "#93000a",
+            "surface-variant": "#2a344e",
+            "surface-tint": "#00dbe9",
+            "tertiary-container": "#ccdaf8",
+            "on-secondary": "#00228a",
+            "on-surface-variant": "#b9cacb",
+            "surface-dim": "#07122a",
+            "tertiary-fixed": "#d6e3ff",
+            "on-primary": "#00363a",
+            "primary-container": "#00f0ff",
+            "error": "#ffb4ab",
+            "on-primary-fixed-variant": "#004f54",
+            "on-secondary-container": "#d6daff",
+            "primary": "#dbfcff",
+            "surface": "#07122a",
+            "background": "#07122a",
+            "on-primary-container": "#006970",
+            "on-tertiary-container": "#525f79",
+            "on-tertiary-fixed": "#0d1c32",
+            "secondary-container": "#0448ff",
+            "secondary": "#b9c3ff",
+            "surface-bright": "#2f3952",
+            "tertiary": "#f4f6ff",
+            "on-tertiary-fixed-variant": "#39475f",
+            "inverse-surface": "#d9e2ff",
+            "surface-container-lowest": "#030d25"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "stack-xs": "4px",
+            "stack-md": "24px",
+            "stack-sm": "12px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "stack-lg": "48px",
+            "unit": "8px",
+            "margin": "32px"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-md": ["Space Grotesk"],
+            "body-md": ["Inter"],
+            "h3": ["Space Grotesk"],
+            "body-lg": ["Inter"],
+            "h1": ["Space Grotesk"],
+            "h2": ["Space Grotesk"],
+            "mono-data": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "mono-data": ["14px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="../assets/css/site.css" />
+
+  <!-- Nav interactivity -->
+  <script defer src="../assets/js/nav.js"></script>
+
+  <style>
+    /* Nav toggle icon swap */
+    .nav-toggle__icon--close { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--open  { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--close { display: inline-block; }
+
+    /* ── Hero ── */
+    .cryo-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--color-background);
+    }
+
+    .cryo-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 219, 233, 0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(4, 72, 255, 0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cryo-hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.22;
+      object-position: center;
+    }
+
+    .cryo-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--color-background) 30%, transparent 70%),
+                  linear-gradient(to top, var(--color-background) 0%, transparent 40%);
+    }
+
+    .cryo-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--container-max);
+      width: 100%;
+      margin: 0 auto;
+      padding: 140px var(--space-gutter) 100px;
+    }
+
+    /* ── Section shared ── */
+    .section-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-gutter);
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-align: center;
+      margin: 0 0 12px;
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      text-align: center;
+      margin: 0 0 48px;
+    }
+
+    /* ── Why cards ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
+
+    .why-card {
+      padding: 36px 28px;
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .why-card__icon {
+      font-size: 36px;
+      color: var(--electric-teal);
+    }
+
+    .why-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3-size);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .why-card__body {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* ── Products preview ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+
+    .product-card {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card__img-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .product-card__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-card__img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .product-card__img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,18,42,0.85) 0%, transparent 55%);
+    }
+
+    .product-card__body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .product-card__eyebrow {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+    }
+
+    .product-card__title {
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 2.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .product-card__desc {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    .product-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-decoration: none;
+      margin-top: auto;
+      transition: gap 0.2s ease;
+    }
+
+    .product-card__link:hover { gap: 10px; }
+
+    /* -- Interactive configurator -- */
+    .configurator-section {
+      padding: 0 0 96px;
+    }
+
+    .configurator-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .configurator-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .model-stage,
+    .builder-panel {
+      border-radius: 0.5rem;
+      border: 1px solid rgba(0, 219, 233, 0.16);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.018)),
+        var(--color-surface-container-lowest);
+      box-shadow: inset 1px 1px 0 rgba(116, 245, 255, 0.12), 0 24px 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .model-stage {
+      position: relative;
+      height: clamp(500px, 62vh, 640px);
+      min-height: 560px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    @media (max-width: 640px) {
+      .model-stage {
+        height: 430px;
+        min-height: 430px;
+      }
+    }
+
+    .model-stage canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      cursor: grab;
+    }
+
+    .model-stage canvas:active {
+      cursor: grabbing;
+    }
+
+    .model-stage__hud {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 18px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .model-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(12, 14, 18, 0.68);
+      backdrop-filter: blur(18px);
+      font-family: var(--font-heading);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-on-surface-variant);
+    }
+
+    .model-stat strong {
+      color: var(--electric-teal);
+      font-weight: 700;
+    }
+
+    .model-tools {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .model-tool-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .icon-tool {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 0.25rem;
+      background: rgba(12, 14, 18, 0.74);
+      color: var(--color-on-surface);
+      backdrop-filter: blur(18px);
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .icon-tool:hover,
+    .icon-tool[aria-pressed="true"] {
+      border-color: rgba(0, 242, 255, 0.58);
+      color: var(--electric-teal);
+    }
+
+    .icon-tool:active {
+      transform: scale(0.97);
+    }
+
+    .model-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--color-on-surface-variant);
+      font-family: var(--font-heading);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .builder-panel {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .builder-panel__head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 18px;
+    }
+
+    .builder-panel__title {
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 2vw, 28px);
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .builder-total {
+      text-align: right;
+      font-family: var(--font-heading);
+      color: var(--electric-teal);
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .builder-total span {
+      display: block;
+      margin-top: 6px;
+      color: var(--color-on-surface-variant);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .option-group {
+      display: grid;
+      gap: 10px;
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option-group legend,
+    .budget-label {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+
+    .option-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 0.25rem;
+      background: rgba(255,255,255,0.025);
+      color: var(--color-on-surface);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .option-row:hover {
+      border-color: rgba(0, 242, 255, 0.35);
+      background: rgba(0, 242, 255, 0.04);
+    }
+
+    .option-row:has(input:checked) {
+      border-color: rgba(0, 242, 255, 0.70);
+      background: rgba(0, 242, 255, 0.08);
+    }
+
+    .option-row input {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .option-row > span {
+      pointer-events: none;
+    }
+
+    .option-row__name {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1.2;
+    }
+
+    .option-row__meta {
+      display: block;
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: 1.35;
+      color: var(--color-on-surface-variant);
+    }
+
+    .option-row__price {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      color: var(--electric-teal);
+      white-space: nowrap;
+    }
+
+    .budget-target {
+      display: grid;
+      gap: 10px;
+    }
+
+    .budget-target__control {
+      display: grid;
+      grid-template-columns: 1fr 92px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .budget-target input[type="range"] {
+      accent-color: var(--electric-teal);
+    }
+
+    .budget-target input[type="number"] {
+      width: 100%;
+      min-height: 40px;
+      border-radius: 0.25rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(12, 14, 18, 0.72);
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      text-align: right;
+      padding: 8px 10px;
+    }
+
+    .budget-meter {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .budget-meter__bar {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--electric-teal), #7df4ff);
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+
+    .budget-meter__bar.is-over {
+      background: linear-gradient(90deg, #ffb4ab, #ff6d66);
+    }
+
+    .budget-status {
+      min-height: 18px;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--color-on-surface-variant);
+    }
+
+    .parts-list {
+      display: grid;
+      gap: 8px;
+      padding-top: 4px;
+    }
+
+    .parts-list__row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      color: var(--color-on-surface-variant);
+      font-size: 13px;
+    }
+
+    .parts-list__row strong {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .builder-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    /* ── Compat strip ── */
+    .compat-strip {
+      padding: 48px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0, 219, 233, 0.10);
+      border-bottom: 1px solid rgba(0, 219, 233, 0.10);
+    }
+
+    .compat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .compat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 0.25rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--color-primary);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(0, 219, 233, 0.20);
+    }
+
+    .compat-chip .material-symbols-outlined {
+      font-size: 16px;
+      color: var(--electric-teal);
+    }
+
+    /* ── CTA Band ── */
+    .cta-band {
+      padding: 96px 24px;
+      text-align: center;
+      background: linear-gradient(135deg,
+        rgba(0, 219, 233, 0.07) 0%,
+        rgba(4, 72, 255, 0.07) 100%);
+      border-top: 1px solid rgba(0, 219, 233, 0.12);
+      border-bottom: 1px solid rgba(0, 219, 233, 0.12);
+    }
+
+    .cta-band__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--color-primary);
+      margin: 0 0 16px;
+    }
+
+    .cta-band__sub {
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0 0 36px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md text-body-md overflow-x-hidden">
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="site-header" data-active="cryo-core">
+
+    <!-- Brand / Logo -->
+    <div class="navbar-brand-group">
+    <a class="brand" href="../index.html" aria-label="ADAPT // COOL — Home">
+      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+      <span>ADAPT <span>//</span> COOL</span>
+    </a>
+    <span class="navbar-byline" aria-label="Founders and course group">
+      <span class="navbar-byline__full">Osamwonyi Noyiagbon, Leonardo Lopez, Mariano Mccehron | ENG 2575 - Group 3</span>
+      <span class="navbar-byline__short">ENG 2575 - Group 3</span>
+    </span>
+    </div>
+
+    <!-- Primary navigation -->
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="../index.html"               data-nav="home">Home</a>
+      <a href="../technology.html"          data-nav="technology">Technology</a>
+      <a href="index.html"     data-nav="cryo-core">CRYO-CORE</a>
+      <a href="../contact.html"             data-nav="contact">Contact</a>
+    </nav>
+
+    <!-- Hamburger toggle (visible on mobile only) -->
+    <button class="nav-toggle"
+            aria-controls="primary-nav"
+            aria-expanded="false"
+            aria-label="Open navigation">
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--open"  aria-hidden="true">menu</span>
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
+    </button>
+
+  </header>
+
+  <main>
+
+    <!-- ═══════════ 1. HERO ═══════════ -->
+    <section class="cryo-hero blueprint-grid" aria-label="CRYO-CORE hero">
+      <div class="cryo-hero__bg" aria-hidden="true"></div>
+
+      <!-- Hero background image -->
+      <img
+        class="cryo-hero__img"
+        src="../assets/img/img-04.jpg"
+        alt="CRYO-CORE predictive CPU cooler on a dark workstation build"
+        width="1920"
+        height="1080"
+        loading="lazy"
+      />
+      <div class="cryo-hero__overlay" aria-hidden="true"></div>
+
+      <div class="cryo-hero__content">
+        <p class="section-label" style="text-align:left; margin-bottom: 20px;">Consumer Line</p>
+
+        <h1 style="
+          font-family: var(--font-heading);
+          font-size: clamp(36px, 5.5vw, 64px);
+          font-weight: 700;
+          line-height: 1.1;
+          letter-spacing: -0.03em;
+          color: var(--color-primary);
+          max-width: 860px;
+          margin: 0 0 24px;
+        ">
+          CRYO-CORE —<br>
+          Predictive Cooling<br>
+          for Every Rig
+        </h1>
+
+        <p style="
+          font-size: var(--text-body-lg-size);
+          line-height: var(--text-body-lg-lh);
+          color: var(--color-on-surface-variant);
+          max-width: 580px;
+          margin: 0 0 40px;
+        ">
+          Intelligent AI-driven thermal management for consumer desktops, gaming rigs, and workstations.
+          CRYO-CORE learns your workload patterns to deliver consistent performance,
+          efficiency, and near-silent noise profiles — automatically.
+        </p>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+          <a href="index.html#build-config" class="glow-btn" style="text-decoration:none; border-radius:0.25rem;">
+            Build Config
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px; margin-left:8px;">arrow_forward</span>
+          </a>
+          <a href="index.html#build-config" class="glow-btn glow-btn--ghost" style="text-decoration:none; border-radius:0.25rem;">
+            Configure Cooler
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px; margin-left:8px;">water_drop</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 2. WHY CRYO-CORE ═══════════ -->
+    <!-- 2. INTERACTIVE BUILD CONFIGURATOR -->
+    <section class="configurator-section" id="build-config" aria-labelledby="configurator-heading">
+      <div class="section-inner">
+        <p class="section-label">Build Config</p>
+        <h2 class="section-heading" id="configurator-heading">
+          Spec the cooler before it hits your desk
+        </h2>
+
+        <div class="configurator-grid">
+          <div class="model-stage" id="cryo-model-stage" aria-label="Interactive 3D CRYO-CORE cooler model">
+            <div class="model-fallback" id="model-fallback">Loading interactive 3D model</div>
+            <div class="model-stage__hud" aria-hidden="true">
+              <div class="model-stat">Thermal class <strong id="model-thermal">185W</strong></div>
+              <div class="model-stat">Noise target <strong id="model-noise">29 dBA</strong></div>
+            </div>
+            <div class="model-tools" aria-label="3D model controls">
+              <div class="model-tool-group">
+                <button class="icon-tool" type="button" id="model-reset" aria-label="Reset 3D view" title="Reset view">
+                  <span class="material-symbols-outlined" aria-hidden="true">center_focus_strong</span>
+                </button>
+                <button class="icon-tool" type="button" id="model-zoom-in" aria-label="Zoom in on 3D model" title="Zoom in">
+                  <span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>
+                </button>
+                <button class="icon-tool" type="button" id="model-zoom-out" aria-label="Zoom out from 3D model" title="Zoom out">
+                  <span class="material-symbols-outlined" aria-hidden="true">zoom_out</span>
+                </button>
+              </div>
+              <div class="model-tool-group">
+                <button class="icon-tool" type="button" id="model-spin" aria-label="Toggle 3D auto rotation" aria-pressed="true" title="Auto rotate">
+                  <span class="material-symbols-outlined" aria-hidden="true">360</span>
+                </button>
+                <button class="icon-tool" type="button" id="model-explode" aria-label="Toggle exploded component view" aria-pressed="false" title="Exploded view">
+                  <span class="material-symbols-outlined" aria-hidden="true">open_in_full</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <form class="builder-panel" id="cryo-builder" aria-label="CRYO-CORE build and budget configurator">
+            <div class="builder-panel__head">
+              <h3 class="builder-panel__title">Budget Counter</h3>
+              <output class="builder-total" id="build-total" for="cryo-builder">
+                $0
+                <span>Estimated build</span>
+              </output>
+            </div>
+
+            <fieldset class="option-group" data-option-group="cooler">
+              <legend>Cooler platform</legend>
+              <label class="option-row">
+                <input type="radio" name="cooler" value="neural" checked />
+                <span>
+                  <span class="option-row__name">CRYO-CORE NEURAL</span>
+                  <span class="option-row__meta">Air tower, predictive fan curve, 185W class</span>
+                </span>
+                <span class="option-row__price">$189</span>
+              </label>
+              <label class="option-row">
+                <input type="radio" name="cooler" value="liquid240" />
+                <span>
+                  <span class="option-row__name">CRYO-CORE LIQUID 240</span>
+                  <span class="option-row__meta">240mm radiator, smart pump, 230W class</span>
+                </span>
+                <span class="option-row__price">$249</span>
+              </label>
+              <label class="option-row">
+                <input type="radio" name="cooler" value="liquid360" />
+                <span>
+                  <span class="option-row__name">CRYO-CORE LIQUID 360</span>
+                  <span class="option-row__meta">360mm radiator, triple fan, 280W class</span>
+                </span>
+                <span class="option-row__price">$329</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="option-group" data-option-group="fans">
+              <legend>Fan kit</legend>
+              <label class="option-row">
+                <input type="radio" name="fans" value="quiet" checked />
+                <span>
+                  <span class="option-row__name">Quiet PWM pair</span>
+                  <span class="option-row__meta">Low noise profile for everyday rigs</span>
+                </span>
+                <span class="option-row__price">$39</span>
+              </label>
+              <label class="option-row">
+                <input type="radio" name="fans" value="performance" />
+                <span>
+                  <span class="option-row__name">Performance triple</span>
+                  <span class="option-row__meta">Higher static pressure and airflow ceiling</span>
+                </span>
+                <span class="option-row__price">$69</span>
+              </label>
+              <label class="option-row">
+                <input type="radio" name="fans" value="argb" />
+                <span>
+                  <span class="option-row__name">ARGB halo triple</span>
+                  <span class="option-row__meta">Addressable lighting with sync cable set</span>
+                </span>
+                <span class="option-row__price">$89</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="option-group" data-option-group="controller">
+              <legend>Control module</legend>
+              <label class="option-row">
+                <input type="radio" name="controller" value="standard" checked />
+                <span>
+                  <span class="option-row__name">Standard hub</span>
+                  <span class="option-row__meta">PWM, ARGB pass-through, USB header</span>
+                </span>
+                <span class="option-row__price">$0</span>
+              </label>
+              <label class="option-row">
+                <input type="radio" name="controller" value="ai" />
+                <span>
+                  <span class="option-row__name">AI Core Pro</span>
+                  <span class="option-row__meta">On-device workload prediction and logging</span>
+                </span>
+                <span class="option-row__price">$79</span>
+              </label>
+              <label class="option-row">
+                <input type="radio" name="controller" value="display" />
+                <span>
+                  <span class="option-row__name">Display telemetry hub</span>
+                  <span class="option-row__meta">OLED pump readout and profile switching</span>
+                </span>
+                <span class="option-row__price">$119</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="option-group" data-option-group="extras">
+              <legend>Extras</legend>
+              <label class="option-row">
+                <input type="checkbox" name="extras" value="lighting" />
+                <span>
+                  <span class="option-row__name">Cyan accent ring</span>
+                  <span class="option-row__meta">Pump and fan perimeter lighting</span>
+                </span>
+                <span class="option-row__price">$24</span>
+              </label>
+              <label class="option-row">
+                <input type="checkbox" name="extras" value="paste" checked />
+                <span>
+                  <span class="option-row__name">Thermal interface kit</span>
+                  <span class="option-row__meta">Paste, cleaner, and spreader pack</span>
+                </span>
+                <span class="option-row__price">$12</span>
+              </label>
+              <label class="option-row">
+                <input type="checkbox" name="extras" value="warranty" />
+                <span>
+                  <span class="option-row__name">Four-year coverage</span>
+                  <span class="option-row__meta">Extended replacement and leak coverage</span>
+                </span>
+                <span class="option-row__price">$39</span>
+              </label>
+            </fieldset>
+
+            <div class="budget-target">
+              <label class="budget-label" for="budget-range">Target budget</label>
+              <div class="budget-target__control">
+                <input id="budget-range" type="range" min="220" max="650" step="10" value="360" />
+                <input id="budget-number" type="number" min="220" max="650" step="10" value="360" aria-label="Target budget dollars" />
+              </div>
+              <div class="budget-meter" aria-hidden="true">
+                <span class="budget-meter__bar" id="budget-meter-bar"></span>
+              </div>
+              <div class="budget-status" id="budget-status" role="status"></div>
+            </div>
+
+            <div class="parts-list" id="parts-list" aria-label="Selected build parts"></div>
+
+            <div class="builder-actions">
+              <a href="neural.html" class="glow-btn glow-btn--ghost" id="build-details-link" style="text-decoration:none; border-radius:0.25rem;">
+                Product details
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px; margin-left:8px;">arrow_forward</span>
+              </a>
+              <button class="glow-btn" type="button" id="copy-build" style="border-radius:0.25rem;">
+                Copy build
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px; margin-left:8px;">content_copy</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 96px 0;" aria-labelledby="why-heading">
+      <div class="section-inner">
+        <p class="section-label">Why CRYO-CORE</p>
+        <h2 class="section-heading" id="why-heading">
+          Built Around Your Workload
+        </h2>
+
+        <div class="why-grid">
+
+          <!-- Card 1: Self-learning -->
+          <div class="glass-panel rim-light why-card">
+            <span class="material-symbols-outlined why-card__icon" aria-hidden="true">psychology</span>
+            <h3 class="why-card__title">Self-Learning Intelligence</h3>
+            <p class="why-card__body">
+              The self-learning thermal engine adapts with every session. The longer it runs,
+              the smarter it gets — predicting heat spikes before they affect performance,
+              and tailoring fan curves to your exact usage patterns.
+            </p>
+          </div>
+
+          <!-- Card 2: Eco modes -->
+          <div class="glass-panel rim-light why-card">
+            <span class="material-symbols-outlined why-card__icon" aria-hidden="true">eco</span>
+            <h3 class="why-card__title">Eco Modes &amp; Low-Power Profiles</h3>
+            <p class="why-card__body">
+              Activate eco modes to reduce power draw during light workloads without sacrificing
+              thermal headroom. CRYO-CORE balances energy efficiency and noise reduction
+              so your rig stays cool and quiet during everyday tasks.
+            </p>
+          </div>
+
+          <!-- Card 3: Desktop + cloud platform -->
+          <div class="glass-panel rim-light why-card">
+            <span class="material-symbols-outlined why-card__icon" aria-hidden="true">devices</span>
+            <h3 class="why-card__title">Desktop &amp; Cloud Platform</h3>
+            <p class="why-card__body">
+              The companion software integrates with Windows (macOS preview coming) and syncs
+              thermal profiles to the cloud platform for cross-device management.
+              Monitor, update, and fine-tune from desktop or browser.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 3. TWO PRODUCTS PREVIEW ═══════════ -->
+    <section style="padding: 0 0 96px;" aria-labelledby="products-heading">
+      <div class="section-inner">
+        <p class="section-label">Products</p>
+        <h2 class="section-heading" id="products-heading">
+          Two Coolers. One Mission.
+        </h2>
+
+        <div class="products-grid">
+
+          <!-- NEURAL -->
+          <article class="glass-panel product-card" aria-label="CRYO-CORE NEURAL product">
+            <div class="product-card__img-wrap">
+              <img
+                src="../assets/img/img-05.jpg"
+                alt="CRYO-CORE NEURAL AI cooler — dark render with electric teal highlights"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <div class="product-card__img-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="product-card__body">
+              <span class="product-card__eyebrow">AI Cooler</span>
+              <h3 class="product-card__title">CRYO-CORE NEURAL</h3>
+              <p class="product-card__desc">
+                Air-cooled with a predictive neural core. The NEURAL unit's self-learning
+                algorithm continuously adjusts fan speed and voltage for maximum performance
+                efficiency and minimum noise — without manual tuning.
+              </p>
+              <a href="neural.html" class="product-card__link" aria-label="See CRYO-CORE NEURAL product details">
+                See product
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- LIQUID -->
+          <article class="glass-panel product-card" aria-label="CRYO-CORE LIQUID product">
+            <div class="product-card__img-wrap">
+              <img
+                src="../assets/img/img-06.jpg"
+                alt="CRYO-CORE LIQUID closed-loop liquid cooler with illuminated pump head"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <div class="product-card__img-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="product-card__body">
+              <span class="product-card__eyebrow">Liquid Cooler</span>
+              <h3 class="product-card__title">CRYO-CORE LIQUID</h3>
+              <p class="product-card__desc">
+                Closed-loop liquid cooling with intelligent pump modulation. Delivers
+                superior thermal performance for high-TDP processors — all managed by the
+                same self-learning platform with full ARGB sync support.
+              </p>
+              <a href="liquid.html" class="product-card__link" aria-label="See CRYO-CORE LIQUID product details">
+                See product
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 4. COMPATIBILITY / SPECS STRIP ═══════════ -->
+    <section class="compat-strip" aria-labelledby="compat-heading">
+      <div class="section-inner">
+        <p class="section-label" style="margin-bottom:8px;">Compatibility</p>
+        <h2 class="section-heading" id="compat-heading" style="margin-bottom: 32px; font-size: clamp(20px,2.5vw,28px);">
+          Ready for Every Platform
+        </h2>
+
+        <div class="compat-chips" role="list" aria-label="Supported platforms and features">
+
+          <span class="compat-chip" role="listitem">
+            <span class="material-symbols-outlined" aria-hidden="true">memory</span>
+            AM5 Socket
+          </span>
+
+          <span class="compat-chip" role="listitem">
+            <span class="material-symbols-outlined" aria-hidden="true">memory</span>
+            LGA1700 Socket
+          </span>
+
+          <span class="compat-chip" role="listitem">
+            <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+            ARGB Sync
+          </span>
+
+          <span class="compat-chip" role="listitem">
+            <span class="material-symbols-outlined" aria-hidden="true">laptop_windows</span>
+            Windows Companion App
+          </span>
+
+          <span class="compat-chip" role="listitem" title="macOS support coming soon">
+            <span class="material-symbols-outlined" aria-hidden="true">laptop_mac</span>
+            macOS Preview
+          </span>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 5. CTA BAND ═══════════ -->
+    <section class="cta-band" aria-label="Call to action">
+      <div style="max-width: 720px; margin: 0 auto;">
+        <h2 class="cta-band__heading">
+          Cool every workload.<br>Predict every spike.
+        </h2>
+        <p class="cta-band__sub">
+          Explore the AI architecture and sensor fusion behind CRYO-CORE's
+          predictive thermal engine.
+        </p>
+        <a href="../technology.html" class="glow-btn" style="text-decoration:none; border-radius:0.25rem;">
+          Read the technology
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px; margin-left:8px;">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+
+    <div class="site-footer__inner">
+
+      <!-- Brand block -->
+      <div class="site-footer__brand">
+        <a class="brand" href="../index.html" aria-label="ADAPT // COOL — Home">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+          <span>ADAPT <span>//</span> COOL</span>
+        </a>
+        <p>Predictive intelligence for liquid cooling.</p>
+      </div>
+
+      <!-- Column 1: Product -->
+      <div class="site-footer__col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../technology.html">Technology</a></li>
+          <li><a href="index.html">CRYO-CORE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Company -->
+      <div class="site-footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../leadership.html">Leadership</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal -->
+      <div class="site-footer__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../contact.html#privacy">Privacy</a></li>
+          <li><a href="../contact.html#terms">Terms</a></li>
+          <li><a href="../contact.html#docs">Docs</a></li>
+          <li><a href="../contact.html#investors">Investors</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom row -->
+    <div class="site-footer__bottom">
+      <span>&copy; 2026 ADAPT // COOL &middot; All rights reserved.</span>
+      <nav class="site-footer__bottom-links" aria-label="Legal links">
+        <a href="../contact.html#privacy">Privacy</a>
+        <a href="../contact.html#terms">Terms</a>
+        <a href="../contact.html#docs">Docs</a>
+        <a href="../contact.html#investors">Investors</a>
+      </nav>
+    </div>
+
+  </footer>
+
+  <script type="module">
+    import * as THREE from 'https://esm.sh/three@0.165.0';
+    import { OrbitControls } from 'https://esm.sh/three@0.165.0/examples/jsm/controls/OrbitControls.js';
+
+    const stage = document.getElementById('cryo-model-stage');
+    const fallback = document.getElementById('model-fallback');
+    const form = document.getElementById('cryo-builder');
+    const totalOutput = document.getElementById('build-total');
+    const partsList = document.getElementById('parts-list');
+    const budgetRange = document.getElementById('budget-range');
+    const budgetNumber = document.getElementById('budget-number');
+    const budgetBar = document.getElementById('budget-meter-bar');
+    const budgetStatus = document.getElementById('budget-status');
+    const thermalOutput = document.getElementById('model-thermal');
+    const noiseOutput = document.getElementById('model-noise');
+    const detailsLink = document.getElementById('build-details-link');
+    const copyButton = document.getElementById('copy-build');
+    const resetButton = document.getElementById('model-reset');
+    const zoomInButton = document.getElementById('model-zoom-in');
+    const zoomOutButton = document.getElementById('model-zoom-out');
+    const spinButton = document.getElementById('model-spin');
+    const explodeButton = document.getElementById('model-explode');
+
+    const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+    const catalog = {
+      cooler: {
+        neural: {
+          label: 'CRYO-CORE NEURAL',
+          price: 189,
+          thermal: '185W',
+          noise: '29 dBA',
+          link: 'neural.html',
+          type: 'air',
+          fans: 2
+        },
+        liquid240: {
+          label: 'CRYO-CORE LIQUID 240',
+          price: 249,
+          thermal: '230W',
+          noise: '27 dBA',
+          link: 'liquid.html',
+          type: 'liquid',
+          fans: 2
+        },
+        liquid360: {
+          label: 'CRYO-CORE LIQUID 360',
+          price: 329,
+          thermal: '280W',
+          noise: '30 dBA',
+          link: 'liquid.html',
+          type: 'liquid',
+          fans: 3
+        }
+      },
+      fans: {
+        quiet: { label: 'Quiet PWM pair', price: 39, accent: 0x6fe7ff },
+        performance: { label: 'Performance triple', price: 69, accent: 0x00dbe7 },
+        argb: { label: 'ARGB halo triple', price: 89, accent: 0x8af7ff }
+      },
+      controller: {
+        standard: { label: 'Standard hub', price: 0, screen: false },
+        ai: { label: 'AI Core Pro', price: 79, screen: false },
+        display: { label: 'Display telemetry hub', price: 119, screen: true }
+      },
+      extras: {
+        lighting: { label: 'Cyan accent ring', price: 24 },
+        paste: { label: 'Thermal interface kit', price: 12 },
+        warranty: { label: 'Four-year coverage', price: 39 }
+      }
+    };
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0c0e12);
+    scene.fog = new THREE.Fog(0x0c0e12, 7, 16);
+
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+    camera.position.set(4.2, 2.7, 6.2);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.75));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.08;
+    stage.prepend(renderer.domElement);
+    fallback.hidden = true;
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.minDistance = 4;
+    controls.maxDistance = 11;
+    controls.target.set(0, 0.55, 0);
+
+    const root = new THREE.Group();
+    const productGroup = new THREE.Group();
+    const accentGroup = new THREE.Group();
+    const fanGroup = new THREE.Group();
+    const optionalGroup = new THREE.Group();
+    root.add(productGroup, accentGroup, fanGroup, optionalGroup);
+    scene.add(root);
+
+    const materials = {
+      graphite: new THREE.MeshPhysicalMaterial({ color: 0x252c33, metalness: 0.82, roughness: 0.24, clearcoat: 0.34, clearcoatRoughness: 0.18 }),
+      dark: new THREE.MeshPhysicalMaterial({ color: 0x080d12, metalness: 0.58, roughness: 0.34, clearcoat: 0.18, clearcoatRoughness: 0.3 }),
+      fin: new THREE.MeshStandardMaterial({ color: 0xb9c7ce, metalness: 0.94, roughness: 0.18 }),
+      copper: new THREE.MeshStandardMaterial({ color: 0xb87333, metalness: 0.88, roughness: 0.2 }),
+      rubber: new THREE.MeshStandardMaterial({ color: 0x05080b, metalness: 0.08, roughness: 0.46 }),
+      screw: new THREE.MeshStandardMaterial({ color: 0xd8e5ea, metalness: 0.95, roughness: 0.18 }),
+      screen: new THREE.MeshStandardMaterial({ color: 0x020709, emissive: 0x00dbe7, emissiveIntensity: 1.4, metalness: 0.2, roughness: 0.12 }),
+      glass: new THREE.MeshPhysicalMaterial({
+        color: 0x7df4ff,
+        transmission: 0.42,
+        transparent: true,
+        opacity: 0.38,
+        roughness: 0.08,
+        metalness: 0,
+        thickness: 0.32,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.05
+      }),
+      accent: new THREE.MeshStandardMaterial({
+        color: 0x00dbe7,
+        emissive: 0x00b9c5,
+        emissiveIntensity: 2.3,
+        metalness: 0.15,
+        roughness: 0.24
+      }),
+      tube: new THREE.MeshStandardMaterial({ color: 0x101820, metalness: 0.18, roughness: 0.22 }),
+      coolant: new THREE.MeshStandardMaterial({ color: 0x7df4ff, emissive: 0x00dbe7, emissiveIntensity: 2.2, metalness: 0.05, roughness: 0.18 })
+    };
+
+    const floor = new THREE.Mesh(
+      new THREE.CircleGeometry(4.8, 192),
+      new THREE.MeshStandardMaterial({ color: 0x11151b, metalness: 0.2, roughness: 0.68 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -1.12;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    const grid = new THREE.GridHelper(9, 36, 0x00dbe7, 0x26323a);
+    grid.position.y = -1.105;
+    grid.material.opacity = 0.2;
+    grid.material.transparent = true;
+    scene.add(grid);
+
+    const ambient = new THREE.HemisphereLight(0xdffcff, 0x05080d, 1.6);
+    scene.add(ambient);
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
+    keyLight.position.set(4, 6, 4);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(2048, 2048);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xb9f8ff, 1.15);
+    fillLight.position.set(-5, 2.5, 3);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.PointLight(0x00dbe7, 8.5, 9);
+    rimLight.position.set(-3.5, 1.6, -2.5);
+    scene.add(rimLight);
+
+    const underGlow = new THREE.PointLight(0x0448ff, 3.5, 6);
+    underGlow.position.set(1.6, -0.7, 2.4);
+    scene.add(underGlow);
+
+    function roundedBox(width, height, depth, radius, segments = 5) {
+      const shape = new THREE.Shape();
+      const x = -width / 2;
+      const y = -height / 2;
+      shape.moveTo(x + radius, y);
+      shape.lineTo(x + width - radius, y);
+      shape.quadraticCurveTo(x + width, y, x + width, y + radius);
+      shape.lineTo(x + width, y + height - radius);
+      shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      shape.lineTo(x + radius, y + height);
+      shape.quadraticCurveTo(x, y + height, x, y + height - radius);
+      shape.lineTo(x, y + radius);
+      shape.quadraticCurveTo(x, y, x + radius, y);
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth,
+        bevelEnabled: true,
+        bevelThickness: radius * 0.45,
+        bevelSize: radius * 0.45,
+        bevelSegments: segments,
+        curveSegments: 10
+      });
+      geometry.center();
+      return geometry;
+    }
+
+    function makeMesh(geometry, material, position, rotation) {
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.copy(position || new THREE.Vector3());
+      if (rotation) mesh.rotation.set(rotation.x || 0, rotation.y || 0, rotation.z || 0);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      return mesh;
+    }
+
+    function makeScrew(x, y, z, scale = 1) {
+      const screw = new THREE.Group();
+      screw.add(makeMesh(new THREE.CylinderGeometry(0.035 * scale, 0.035 * scale, 0.018 * scale, 32), materials.screw, new THREE.Vector3(), { x: Math.PI / 2 }));
+      screw.add(makeMesh(new THREE.BoxGeometry(0.052 * scale, 0.006 * scale, 0.008 * scale), materials.dark, new THREE.Vector3(0, 0, 0.012 * scale)));
+      screw.position.set(x, y, z);
+      return screw;
+    }
+
+    function addEdgeScrews(group, width, height, z, scale = 1, centerX = 0, centerY = 0) {
+      const inset = 0.15 * scale;
+      [
+        [centerX - width / 2 + inset, centerY - height / 2 + inset],
+        [centerX + width / 2 - inset, centerY - height / 2 + inset],
+        [centerX - width / 2 + inset, centerY + height / 2 - inset],
+        [centerX + width / 2 - inset, centerY + height / 2 - inset]
+      ].forEach(([x, y]) => group.add(makeScrew(x, y, z, scale)));
+    }
+
+    function makeConnector(position, rotationZ = 0, scale = 1) {
+      const connector = new THREE.Group();
+      connector.add(makeMesh(new THREE.CylinderGeometry(0.075 * scale, 0.075 * scale, 0.09 * scale, 40), materials.graphite, new THREE.Vector3(), { x: Math.PI / 2 }));
+      connector.add(makeMesh(new THREE.TorusGeometry(0.077 * scale, 0.009 * scale, 12, 48), materials.accent, new THREE.Vector3(0, 0, 0.047 * scale)));
+      connector.rotation.z = rotationZ;
+      connector.position.copy(position);
+      return connector;
+    }
+
+    function clearGroup(group) {
+      while (group.children.length) {
+        const child = group.children.pop();
+        child.traverse((node) => {
+          if (node.geometry) node.geometry.dispose();
+        });
+      }
+    }
+
+    function makeFan(x, y, z, scale = 1) {
+      const fan = new THREE.Group();
+      const frame = makeMesh(new THREE.TorusGeometry(0.47 * scale, 0.048 * scale, 24, 96), materials.dark, new THREE.Vector3(0, 0, 0));
+      const innerFrame = makeMesh(new THREE.TorusGeometry(0.33 * scale, 0.011 * scale, 16, 96), materials.graphite, new THREE.Vector3(0, 0, 0.006 * scale));
+      const halo = makeMesh(new THREE.TorusGeometry(0.42 * scale, 0.008 * scale, 12, 96), materials.accent, new THREE.Vector3(0, 0, 0.025 * scale));
+      const hub = makeMesh(new THREE.CylinderGeometry(0.12 * scale, 0.12 * scale, 0.075 * scale, 64), materials.graphite, new THREE.Vector3(0, 0, 0), { x: Math.PI / 2 });
+      const hubCap = makeMesh(new THREE.CylinderGeometry(0.075 * scale, 0.075 * scale, 0.082 * scale, 64), materials.accent, new THREE.Vector3(0, 0, 0.006 * scale), { x: Math.PI / 2 });
+      fan.add(frame, innerFrame, halo, hub, hubCap);
+
+      for (let i = 0; i < 9; i += 1) {
+        const blade = makeMesh(
+          roundedBox(0.38 * scale, 0.054 * scale, 0.024 * scale, 0.012 * scale, 3),
+          materials.fin,
+          new THREE.Vector3(0.18 * scale, 0, 0.014 * scale),
+          { z: i * Math.PI / 4.5 + 0.42 }
+        );
+        blade.geometry.translate(0.09 * scale, 0, 0);
+        blade.rotation.x = 0.18;
+        fan.add(blade);
+      }
+
+      [[-0.34, -0.34], [0.34, -0.34], [-0.34, 0.34], [0.34, 0.34]].forEach(([sx, sy]) => {
+        fan.add(makeScrew(sx * scale, sy * scale, 0.045 * scale, 0.65 * scale));
+      });
+
+      fan.position.set(x, y, z);
+      return fan;
+    }
+
+    function makeRadiator(fanCount) {
+      const radiator = new THREE.Group();
+      const width = fanCount === 3 ? 3.25 : 2.3;
+      radiator.add(makeMesh(roundedBox(width, 0.96, 0.4, 0.08, 6), materials.graphite, new THREE.Vector3(0, 0.8, -0.7)));
+      radiator.add(makeMesh(roundedBox(width + 0.16, 0.12, 0.46, 0.04, 4), materials.dark, new THREE.Vector3(0, 1.33, -0.7)));
+      radiator.add(makeMesh(roundedBox(width + 0.16, 0.12, 0.46, 0.04, 4), materials.dark, new THREE.Vector3(0, 0.27, -0.7)));
+
+      for (let i = 0; i < 30; i += 1) {
+        const x = -width / 2 + 0.14 + i * ((width - 0.28) / 29);
+        const fin = makeMesh(new THREE.BoxGeometry(0.018, 0.75, 0.44), materials.fin, new THREE.Vector3(x, 0.8, -0.68));
+        fin.rotation.z = i % 2 === 0 ? 0.018 : -0.018;
+        radiator.add(fin);
+      }
+
+      for (let i = 0; i < 8; i += 1) {
+        const y = 0.46 + i * 0.09;
+        radiator.add(makeMesh(new THREE.BoxGeometry(width - 0.22, 0.008, 0.455), materials.dark, new THREE.Vector3(0, y, -0.665)));
+      }
+
+      const spacing = fanCount === 3 ? 1.02 : 0.98;
+      const start = -spacing * (fanCount - 1) / 2;
+      for (let i = 0; i < fanCount; i += 1) {
+        const fan = makeFan(start + spacing * i, 0.8, -0.45, 0.82);
+        radiator.add(fan);
+      }
+
+      addEdgeScrews(radiator, width, 0.92, -0.43, 0.85, 0, 0.8);
+
+      return radiator;
+    }
+
+    function makePump(hasScreen) {
+      const pump = new THREE.Group();
+      pump.add(makeMesh(new THREE.CylinderGeometry(0.54, 0.58, 0.36, 96), materials.graphite, new THREE.Vector3(0, -0.32, 0), { x: Math.PI / 2 }));
+      pump.add(makeMesh(new THREE.CylinderGeometry(0.42, 0.42, 0.09, 96), materials.glass, new THREE.Vector3(0, -0.32, 0.22), { x: Math.PI / 2 }));
+      pump.add(makeMesh(new THREE.CylinderGeometry(0.32, 0.32, 0.035, 96), materials.screen, new THREE.Vector3(0, -0.32, 0.285), { x: Math.PI / 2 }));
+      pump.add(makeMesh(new THREE.TorusGeometry(0.43, 0.026, 18, 120), materials.accent, new THREE.Vector3(0, -0.32, 0.25)));
+      pump.add(makeMesh(new THREE.TorusGeometry(0.28, 0.008, 12, 96), materials.coolant, new THREE.Vector3(0, -0.32, 0.307)));
+      pump.add(makeMesh(roundedBox(0.72, 0.1, 0.5, 0.035, 4), materials.copper, new THREE.Vector3(0, -0.59, -0.05)));
+
+      for (let i = 0; i < 14; i += 1) {
+        pump.add(makeMesh(new THREE.BoxGeometry(0.018, 0.19, 0.035), materials.copper, new THREE.Vector3(-0.25 + i * 0.038, -0.59, 0.24)));
+      }
+
+      [[-0.34, -0.66], [0.34, -0.66], [-0.34, 0.02], [0.34, 0.02]].forEach(([sx, sy]) => {
+        pump.add(makeScrew(sx, sy, 0.31, 0.75));
+      });
+
+      pump.add(makeConnector(new THREE.Vector3(-0.16, -0.24, 0.16), -0.2, 0.95));
+      pump.add(makeConnector(new THREE.Vector3(0.16, -0.24, 0.16), 0.2, 0.95));
+
+      if (hasScreen) {
+        const screen = makeMesh(roundedBox(0.5, 0.2, 0.035, 0.025, 4), materials.screen, new THREE.Vector3(0, -0.32, 0.37));
+        screen.add(makeMesh(new THREE.BoxGeometry(0.32, 0.018, 0.01), materials.accent, new THREE.Vector3(0, 0.03, 0.025)));
+        screen.add(makeMesh(new THREE.BoxGeometry(0.22, 0.012, 0.01), materials.accent, new THREE.Vector3(-0.04, -0.035, 0.025)));
+        pump.add(screen);
+      }
+      return pump;
+    }
+
+    function makeAirTower() {
+      const tower = new THREE.Group();
+      tower.add(makeMesh(roundedBox(1.22, 1.58, 0.64, 0.06, 6), materials.graphite, new THREE.Vector3(0, 0.45, -0.05)));
+      for (let i = 0; i < 31; i += 1) {
+        const fin = makeMesh(roundedBox(1.42, 0.018, 0.72, 0.01, 2), materials.fin, new THREE.Vector3(0, -0.32 + i * 0.052, -0.05));
+        fin.rotation.z = i % 2 ? 0.01 : -0.01;
+        tower.add(fin);
+      }
+      tower.add(makeFan(0, 0.45, 0.39, 0.92));
+      tower.add(makeMesh(roundedBox(0.88, 0.19, 0.86, 0.04, 4), materials.graphite, new THREE.Vector3(0, -0.63, 0)));
+      tower.add(makeMesh(roundedBox(0.72, 0.08, 0.68, 0.025, 3), materials.copper, new THREE.Vector3(0, -0.78, 0.02)));
+
+      for (let i = -2; i <= 2; i += 1) {
+        const pipe = new THREE.Mesh(
+          new THREE.TorusGeometry(0.45, 0.023, 18, 96, Math.PI),
+          materials.copper
+        );
+        pipe.position.set(i * 0.13, -0.2, -0.38);
+        pipe.rotation.y = Math.PI / 2;
+        pipe.castShadow = true;
+        tower.add(pipe);
+      }
+
+      addEdgeScrews(tower, 1.2, 1.55, 0.34, 0.8, 0, 0.45);
+      return tower;
+    }
+
+    function makeTube(startX, endX, zOffset) {
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(startX, -0.24, 0.12),
+        new THREE.Vector3(startX, 0.3, -0.35 + zOffset),
+        new THREE.Vector3(endX, 0.48, -0.58 + zOffset),
+        new THREE.Vector3(endX, 0.72, -0.58 + zOffset)
+      ]);
+      const tube = new THREE.Group();
+      tube.add(makeMesh(new THREE.TubeGeometry(curve, 112, 0.037, 18, false), materials.tube, new THREE.Vector3()));
+      tube.add(makeMesh(new THREE.TubeGeometry(curve, 112, 0.011, 10, false), materials.coolant, new THREE.Vector3()));
+      tube.add(makeConnector(curve.points[0], 0, 0.82));
+      tube.add(makeConnector(curve.points[curve.points.length - 1], 0, 0.82));
+      return tube;
+    }
+
+    function rebuildModel() {
+      clearGroup(productGroup);
+      clearGroup(accentGroup);
+      clearGroup(fanGroup);
+      clearGroup(optionalGroup);
+
+      const state = getState();
+      const cooler = catalog.cooler[state.cooler];
+      const controller = catalog.controller[state.controller];
+      const fanAccent = catalog.fans[state.fans].accent;
+      materials.accent.color.setHex(fanAccent);
+      materials.accent.emissive.setHex(fanAccent);
+
+      const baseGroup = new THREE.Group();
+      baseGroup.add(makeMesh(roundedBox(1.62, 0.2, 1.08, 0.06, 6), materials.graphite, new THREE.Vector3(0, -0.88, 0)));
+      baseGroup.add(makeMesh(roundedBox(1.12, 0.035, 0.74, 0.018, 3), materials.copper, new THREE.Vector3(0, -0.74, 0.03)));
+      addEdgeScrews(baseGroup, 1.45, 0.9, 0.56, 0.75, 0, -0.88);
+      productGroup.add(baseGroup);
+
+      if (cooler.type === 'air') {
+        productGroup.add(makeAirTower());
+      } else {
+        const radiator = makeRadiator(cooler.fans);
+        radiator.position.set(0, 0.1, -0.2);
+        productGroup.add(radiator);
+        productGroup.add(makePump(controller.screen));
+        productGroup.add(makeTube(-0.16, -0.48, 0.04));
+        productGroup.add(makeTube(0.16, 0.48, -0.08));
+      }
+
+      if (state.extras.includes('lighting')) {
+        const halo = makeMesh(new THREE.TorusGeometry(1.15, 0.018, 18, 144), materials.accent, new THREE.Vector3(0, -0.86, 0));
+        halo.rotation.x = Math.PI / 2;
+        accentGroup.add(halo);
+        const innerHalo = makeMesh(new THREE.TorusGeometry(0.72, 0.009, 12, 120), materials.coolant, new THREE.Vector3(0, -0.825, 0));
+        innerHalo.rotation.x = Math.PI / 2;
+        accentGroup.add(innerHalo);
+      }
+
+      if (state.controller !== 'standard') {
+        optionalGroup.add(makeMesh(roundedBox(0.66, 0.17, 0.44, 0.04, 4), materials.dark, new THREE.Vector3(0.88, -0.78, 0.32)));
+        optionalGroup.add(makeMesh(roundedBox(0.42, 0.035, 0.24, 0.012, 2), materials.screen, new THREE.Vector3(0.88, -0.68, 0.32)));
+        optionalGroup.add(makeScrew(0.62, -0.68, 0.53, 0.6));
+        optionalGroup.add(makeScrew(1.14, -0.68, 0.53, 0.6));
+      }
+
+      productGroup.children.forEach((child, index) => {
+        child.userData.basePosition = child.position.clone();
+        child.userData.explodeOffset = new THREE.Vector3(
+          index === 0 ? 0 : (index % 2 === 0 ? 0.34 : -0.34),
+          index === 0 ? -0.18 : 0.18 + index * 0.04,
+          index === 0 ? 0 : 0.22 + index * 0.08
+        );
+      });
+      accentGroup.children.forEach((child) => {
+        child.userData.basePosition = child.position.clone();
+        child.userData.explodeOffset = new THREE.Vector3(0, -0.18, 0.24);
+      });
+      optionalGroup.children.forEach((child) => {
+        child.userData.basePosition = child.position.clone();
+        child.userData.explodeOffset = new THREE.Vector3(0.42, 0.08, 0.38);
+      });
+
+      thermalOutput.textContent = cooler.thermal;
+      noiseOutput.textContent = cooler.noise;
+      detailsLink.href = cooler.link;
+      applyExplode();
+    }
+
+    function getState() {
+      const formData = new FormData(form);
+      return {
+        cooler: formData.get('cooler'),
+        fans: formData.get('fans'),
+        controller: formData.get('controller'),
+        extras: formData.getAll('extras')
+      };
+    }
+
+    function getSelectedParts() {
+      const state = getState();
+      const parts = [
+        catalog.cooler[state.cooler],
+        catalog.fans[state.fans],
+        catalog.controller[state.controller],
+        ...state.extras.map((key) => catalog.extras[key])
+      ];
+      return parts;
+    }
+
+    function updateBudget() {
+      const parts = getSelectedParts();
+      const total = parts.reduce((sum, part) => sum + part.price, 0);
+      const budget = Number(budgetNumber.value || budgetRange.value);
+      const percent = Math.min(100, Math.round((total / budget) * 100));
+      const delta = Math.abs(budget - total);
+      const overBudget = total > budget;
+
+      totalOutput.innerHTML = `${currency.format(total)}<span>Estimated build</span>`;
+      budgetBar.style.width = `${percent}%`;
+      budgetBar.classList.toggle('is-over', overBudget);
+      budgetStatus.textContent = overBudget
+        ? `${currency.format(delta)} over target. Drop a module or raise the budget.`
+        : `${currency.format(delta)} under target.`;
+      partsList.innerHTML = parts.map((part) => `
+        <div class="parts-list__row">
+          <strong>${part.label}</strong>
+          <span>${currency.format(part.price)}</span>
+        </div>
+      `).join('');
+      return { parts, total, budget };
+    }
+
+    function syncBudgetInputs(source) {
+      const value = Number(source.value);
+      budgetRange.value = value;
+      budgetNumber.value = value;
+      updateBudget();
+    }
+
+    let exploded = false;
+    function applyExplode() {
+      [productGroup, accentGroup, optionalGroup].forEach((group) => {
+        group.children.forEach((child) => {
+          const base = child.userData.basePosition || child.position;
+          const offset = child.userData.explodeOffset || new THREE.Vector3();
+          child.position.copy(base).add(exploded ? offset : new THREE.Vector3());
+        });
+      });
+      root.scale.setScalar(exploded ? 0.94 : 1);
+    }
+
+    function resizeRenderer() {
+      const width = stage.clientWidth;
+      const height = stage.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
+    }
+
+    const resizeObserver = new ResizeObserver(resizeRenderer);
+    resizeObserver.observe(stage);
+
+    resetButton.addEventListener('click', () => {
+      camera.position.set(4.2, 2.7, 6.2);
+      controls.target.set(0, 0.55, 0);
+      controls.update();
+    });
+
+    zoomInButton.addEventListener('click', () => {
+      camera.position.multiplyScalar(0.88);
+      controls.update();
+    });
+
+    zoomOutButton.addEventListener('click', () => {
+      camera.position.multiplyScalar(1.12);
+      controls.update();
+    });
+
+    spinButton.addEventListener('click', () => {
+      controls.autoRotate = !controls.autoRotate;
+      spinButton.setAttribute('aria-pressed', String(controls.autoRotate));
+    });
+
+    explodeButton.addEventListener('click', () => {
+      exploded = !exploded;
+      explodeButton.setAttribute('aria-pressed', String(exploded));
+      applyExplode();
+    });
+
+    form.addEventListener('change', (event) => {
+      if (event.target.matches('input[name="cooler"], input[name="fans"], input[name="controller"], input[name="extras"]')) {
+        rebuildModel();
+        updateBudget();
+      }
+    });
+
+    budgetRange.addEventListener('input', () => syncBudgetInputs(budgetRange));
+    budgetNumber.addEventListener('input', () => syncBudgetInputs(budgetNumber));
+
+    copyButton.addEventListener('click', async () => {
+      const { parts, total, budget } = updateBudget();
+      const summary = [
+        'CRYO-CORE build config',
+        ...parts.map((part) => `- ${part.label}: ${currency.format(part.price)}`),
+        `Total: ${currency.format(total)}`,
+        `Target budget: ${currency.format(budget)}`
+      ].join('\n');
+
+      try {
+        await navigator.clipboard.writeText(summary);
+        copyButton.firstChild.textContent = 'Copied ';
+      } catch {
+        copyButton.firstChild.textContent = 'Ready ';
+      }
+    });
+
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.7;
+    rebuildModel();
+    updateBudget();
+    resizeRenderer();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      productGroup.rotation.y += controls.autoRotate ? 0 : 0.002;
+      rimLight.intensity = 6.4 + Math.sin(performance.now() * 0.002) * 1.2;
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+
+</body>
+</html>

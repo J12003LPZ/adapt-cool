@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact ADAPT // COOL — reach the engineering team for sales, partnerships, press, investor inquiries, or general support. FAQ and legal information included." />
+  <title>Contact — ADAPT // COOL</title>
+
+  <!-- GitHub Pages project-path support -->
+  <script>
+    (function () {
+      var projectName = 'stitch_next_gen_cpu_cooling';
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var fileName = segments[segments.length - 1] || '';
+      var projectIndex = segments.indexOf(projectName);
+      var hasFileName = fileName.indexOf('.') !== -1;
+      var basePath;
+
+      if (projectIndex !== -1 && !hasFileName && segments.length > projectIndex + 1) {
+        basePath = '/' + segments.slice(0, projectIndex + 1).join('/') + '/';
+      } else if (path.endsWith('/')) {
+        basePath = path;
+      } else if (!hasFileName) {
+        basePath = path + '/';
+      } else {
+        basePath = path.slice(0, path.lastIndexOf('/') + 1);
+      }
+
+      var base = document.createElement('base');
+      base.href = basePath;
+      document.head.insertBefore(base, document.head.firstChild);
+    }());
+  </script>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#849495",
+            "primary-fixed-dim": "#00dbe9",
+            "on-background": "#d9e2ff",
+            "on-secondary-fixed": "#001257",
+            "secondary-fixed-dim": "#b9c3ff",
+            "on-primary-fixed": "#002022",
+            "on-error": "#690005",
+            "surface-container": "#151f37",
+            "primary-fixed": "#7df4ff",
+            "outline-variant": "#3b494b",
+            "inverse-on-surface": "#263049",
+            "surface-container-highest": "#2a344e",
+            "surface-container-low": "#101b33",
+            "secondary-fixed": "#dde1ff",
+            "on-surface": "#d9e2ff",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed-variant": "#0033c0",
+            "inverse-primary": "#006970",
+            "tertiary-fixed-dim": "#b9c7e4",
+            "surface-container-high": "#1f2942",
+            "on-tertiary": "#233148",
+            "error-container": "#93000a",
+            "surface-variant": "#2a344e",
+            "surface-tint": "#00dbe9",
+            "tertiary-container": "#ccdaf8",
+            "on-secondary": "#00228a",
+            "on-surface-variant": "#b9cacb",
+            "surface-dim": "#07122a",
+            "tertiary-fixed": "#d6e3ff",
+            "on-primary": "#00363a",
+            "primary-container": "#00f0ff",
+            "error": "#ffb4ab",
+            "on-primary-fixed-variant": "#004f54",
+            "on-secondary-container": "#d6daff",
+            "primary": "#dbfcff",
+            "surface": "#07122a",
+            "background": "#07122a",
+            "on-primary-container": "#006970",
+            "on-tertiary-container": "#525f79",
+            "on-tertiary-fixed": "#0d1c32",
+            "secondary-container": "#0448ff",
+            "secondary": "#b9c3ff",
+            "surface-bright": "#2f3952",
+            "tertiary": "#f4f6ff",
+            "on-tertiary-fixed-variant": "#39475f",
+            "inverse-surface": "#d9e2ff",
+            "surface-container-lowest": "#030d25"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "stack-xs": "4px",
+            "stack-md": "24px",
+            "stack-sm": "12px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "stack-lg": "48px",
+            "unit": "8px",
+            "margin": "32px"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-md": ["Space Grotesk"],
+            "body-md": ["Inter"],
+            "h3": ["Space Grotesk"],
+            "body-lg": ["Inter"],
+            "h1": ["Space Grotesk"],
+            "h2": ["Space Grotesk"],
+            "mono-data": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "mono-data": ["14px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="assets/css/site.css" />
+
+  <!-- Nav interactivity -->
+  <script defer src="assets/js/nav.js"></script>
+  <!-- Contact form logic -->
+  <script defer src="assets/js/contact.js"></script>
+  <!-- UI utilities -->
+  <script defer src="assets/js/ui.js"></script>
+
+  <style>
+    /* Nav toggle icon swap */
+    .nav-toggle__icon--close { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--open  { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--close { display: inline-block; }
+
+    /* ── Hero ── */
+    .contact-hero {
+      position: relative;
+      min-height: 52vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--color-background);
+    }
+
+    .contact-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 0%, rgba(0, 219, 233, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 90% 80%, rgba(4, 72, 255, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .contact-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px var(--space-gutter) 60px;
+      text-align: center;
+    }
+
+    .contact-hero__eyebrow {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      margin: 0 0 24px;
+    }
+
+    .contact-hero__h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--color-primary);
+      margin: 0 0 20px;
+    }
+
+    .contact-hero__sub {
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* ── Section shared ── */
+    .section-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-gutter);
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-align: center;
+      margin: 0 0 12px;
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      text-align: center;
+      margin: 0 0 48px;
+    }
+
+    /* ── Contact form section ── */
+    .contact-form-section {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0, 219, 231, 0.10);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .contact-form-panel {
+      padding: 48px;
+      border-radius: 0.5rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .form-field label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--color-surface-container-high);
+      color: var(--color-on-background);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-bottom: 1px solid var(--color-outline-variant);
+      padding: 12px 16px;
+      width: 100%;
+      font-size: var(--text-body-md-size);
+      font-family: inherit;
+      line-height: 1.5;
+      border-radius: 0.25rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--electric-teal);
+    }
+
+    .form-field input[aria-invalid="true"],
+    .form-field select[aria-invalid="true"],
+    .form-field textarea[aria-invalid="true"] {
+      border-color: var(--color-error);
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .form-field select {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .form-error {
+      font-size: 12px;
+      color: var(--color-error);
+      min-height: 16px;
+      display: none;
+    }
+
+    .form-error.is-visible {
+      display: block;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-panel { padding: 28px 20px; }
+    }
+
+    /* ── FAQ section ── */
+    .faq {
+      padding: 80px 0;
+      background: var(--color-background);
+    }
+
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    details[data-faq] {
+      border: 1px solid rgba(0, 219, 233, 0.15);
+      border-radius: 0.25rem;
+      background: rgba(0, 219, 233, 0.03);
+      overflow: hidden;
+    }
+
+    details[data-faq] summary {
+      list-style: none;
+      padding: 20px 24px;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-size: var(--text-body-lg-size);
+      font-weight: 600;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+
+    details[data-faq] summary::-webkit-details-marker { display: none; }
+
+    details[data-faq] summary::after {
+      content: 'expand_more';
+      font-family: 'Material Symbols Outlined';
+      font-size: 22px;
+      color: var(--electric-teal);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    details[data-faq][open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    details[data-faq] > div {
+      padding: 0 24px 24px;
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+    }
+
+    /* ── Legal anchor sections ── */
+    .legal-sections {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0, 219, 231, 0.10);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .legal-section {
+      max-width: 780px;
+      margin: 0 auto 64px;
+      padding: 0 var(--space-gutter);
+      scroll-margin-top: 80px;
+    }
+
+    .legal-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-section__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(0, 219, 233, 0.15);
+    }
+
+    .legal-section p {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0 0 16px;
+    }
+
+    .legal-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── CTA Band ── */
+    .cta-band {
+      padding: 80px var(--space-gutter);
+      text-align: center;
+      background: var(--color-background);
+      border-top: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .cta-band__eyebrow {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      margin: 0 0 20px;
+    }
+
+    .cta-band__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      margin: 0 0 16px;
+    }
+
+    .cta-band__sub {
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-band__btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    @media (max-width: 480px) {
+      .cta-band__btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       SITE HEADER
+       data-active="contact"
+       ═══════════════════════════════════════════════ -->
+  <header class="site-header" data-active="contact">
+
+    <!-- Brand / Logo -->
+    <div class="navbar-brand-group">
+    <a class="brand" href="index.html" aria-label="ADAPT // COOL — Home">
+      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+      <span>ADAPT <span>//</span> COOL</span>
+    </a>
+    <span class="navbar-byline" aria-label="Founders and course group">
+      <span class="navbar-byline__full">Osamwonyi Noyiagbon, Leonardo Lopez, Mariano Mccehron | ENG 2575 - Group 3</span>
+      <span class="navbar-byline__short">ENG 2575 - Group 3</span>
+    </span>
+    </div>
+
+    <!-- Primary navigation -->
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html"               data-nav="home">Home</a>
+      <a href="technology.html"          data-nav="technology">Technology</a>
+      <a href="cryo-core/index.html"     data-nav="cryo-core">CRYO-CORE</a>
+      <a href="contact.html"             data-nav="contact">Contact</a>
+    </nav>
+
+    <!-- Hamburger toggle (visible on mobile only) -->
+    <button class="nav-toggle"
+            aria-controls="primary-nav"
+            aria-expanded="false"
+            aria-label="Open navigation">
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--open"  aria-hidden="true">menu</span>
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
+    </button>
+
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 1: HERO
+         ═══════════════════════════════════════════════ -->
+    <section class="contact-hero" aria-label="Contact hero">
+      <div class="contact-hero__bg" aria-hidden="true"></div>
+      <div class="contact-hero__content">
+        <p class="contact-hero__eyebrow">Get in Touch</p>
+        <h1 class="contact-hero__h1">Initiate Contact</h1>
+        <p class="contact-hero__sub">
+          Reach our engineering team for inquiries about thermal architecture,
+          immersion deployments, investor access, or general support.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 2: CONTACT FORM
+         ═══════════════════════════════════════════════ -->
+    <section class="contact-form-section" aria-label="Contact form">
+      <div class="section-inner">
+        <p class="section-label">Send a Message</p>
+        <h2 class="section-heading">We Read Every Submission</h2>
+
+        <form data-contact-form class="contact-form-panel glass-panel rim-light" novalidate>
+
+          <div class="form-row">
+            <!-- Name -->
+            <div class="form-field">
+              <label for="contact-name">Name</label>
+              <input
+                type="text"
+                id="contact-name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Your full name"
+              />
+              <small class="form-error" data-error-for="name"></small>
+            </div>
+
+            <!-- Email -->
+            <div class="form-field">
+              <label for="contact-email">Email</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="your@email.com"
+              />
+              <small class="form-error" data-error-for="email"></small>
+            </div>
+          </div>
+
+          <!-- Company -->
+          <div class="form-field">
+            <label for="contact-company">Company <span style="font-weight:400;opacity:.6;">(Optional)</span></label>
+            <input
+              type="text"
+              id="contact-company"
+              name="company"
+              autocomplete="organization"
+              placeholder="Optional"
+            />
+          </div>
+
+          <!-- Topic -->
+          <div class="form-field">
+            <label for="contact-topic">Topic</label>
+            <select id="contact-topic" name="topic" required>
+              <option value="" disabled selected>Select a topic…</option>
+              <option value="General">General</option>
+              <option value="Sales">Sales</option>
+              <option value="Partnerships">Partnerships</option>
+              <option value="Press">Press</option>
+              <option value="Investor inquiry">Investor inquiry</option>
+              <option value="Support">Support</option>
+            </select>
+            <small class="form-error" data-error-for="topic"></small>
+          </div>
+
+          <!-- Subject -->
+          <div class="form-field">
+            <label for="contact-subject">Subject <span style="font-weight:400;opacity:.6;">(Optional)</span></label>
+            <input
+              type="text"
+              id="contact-subject"
+              name="subject"
+              placeholder="Brief subject line"
+            />
+          </div>
+
+          <!-- Message -->
+          <div class="form-field">
+            <label for="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              required
+              rows="6"
+              placeholder="How can we help you?"
+            ></textarea>
+            <small class="form-error" data-error-for="message"></small>
+          </div>
+
+          <button type="submit" class="glow-btn">Send &rarr;</button>
+
+        </form>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 3: FAQ ACCORDION
+         ═══════════════════════════════════════════════ -->
+    <section class="faq" aria-label="Frequently asked questions">
+      <div class="section-inner">
+        <p class="section-label">FAQ</p>
+        <h2 class="section-heading">Common Questions</h2>
+
+        <div class="faq-list" role="list">
+
+          <details data-faq role="listitem">
+            <summary>What hardware does CRYO-CORE support?</summary>
+            <div>
+              CRYO-CORE currently supports standard 120mm and 240mm radiator mounting points
+              across AMD AM4/AM5 and Intel LGA 1700/1200 sockets. Compatibility lists are updated
+              with each firmware release via the ADAPT software dashboard.
+            </div>
+          </details>
+
+          <details data-faq role="listitem">
+            <summary>Does Submerge integrate with our DCIM?</summary>
+            <div>
+              Yes. Submerge exposes a REST API and SNMP traps compatible with leading DCIM platforms
+              including Sunbird, Nlyte, and Schneider EcoStruxure. Custom integrations are available
+              under enterprise agreements.
+            </div>
+          </details>
+
+          <details data-faq role="listitem">
+            <summary>How is heat-spike prediction trained?</summary>
+            <div>
+              Our ML models are trained on a combination of synthetic thermal workload traces
+              and anonymized telemetry from opted-in deployments. Each model update is validated
+              against held-out workload profiles before OTA delivery to ensure no regression
+              in prediction accuracy.
+            </div>
+          </details>
+
+          <details data-faq role="listitem">
+            <summary>What is the warranty?</summary>
+            <div>
+              CRYO-CORE hardware carries a 2-year limited warranty covering manufacturing defects.
+              Submerge enterprise systems ship with a 3-year on-site service agreement.
+              Extended warranty options are available through authorized resellers.
+            </div>
+          </details>
+
+          <details data-faq role="listitem">
+            <summary>Can I trial a unit?</summary>
+            <div>
+              Qualified enterprise and OEM partners can request a 30-day evaluation unit
+              through the contact form above. Consumer pre-orders will open when we launch
+              the CRYO-CORE retail channel — sign up via the contact form to be notified first.
+            </div>
+          </details>
+
+          <details data-faq role="listitem">
+            <summary>How do I become a partner?</summary>
+            <div>
+              Select "Partnerships" in the topic dropdown on the contact form and describe
+              your use case. Our business development team typically responds within 2 business days.
+              We welcome OEM embedding, distribution, and co-development conversations.
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         LEGAL ANCHOR SECTIONS
+         (#privacy, #terms, #docs, #investors)
+         ═══════════════════════════════════════════════ -->
+    <section class="legal-sections" aria-label="Legal information">
+
+      <section id="privacy" class="legal-section">
+        <h2 class="legal-section__heading">Privacy Policy</h2>
+        <p>
+          ADAPT // COOL collects only the data necessary to operate its products and services.
+          This includes telemetry data transmitted by connected cooling units (anonymized by default),
+          contact form submissions, and account information for ADAPT subscription holders.
+        </p>
+        <p>
+          We do not sell personal data to third parties. All telemetry is processed under strict
+          data minimization principles. Opted-in diagnostic data is used solely to improve
+          AI model accuracy. You may request deletion of your data at any time by contacting us
+          at <a href="mailto:privacy@adaptcool.example" style="color:var(--electric-teal);">privacy@adaptcool.example</a>.
+        </p>
+        <p>
+          This policy is governed by applicable data protection law. We will notify affected users
+          within 72 hours of any confirmed data breach.
+        </p>
+      </section>
+
+      <section id="terms" class="legal-section">
+        <h2 class="legal-section__heading">Terms of Service</h2>
+        <p>
+          By using ADAPT // COOL hardware or software products, you agree to these Terms of Service.
+          Products are licensed, not sold, for use in accordance with the applicable product license
+          included with each unit or subscription tier.
+        </p>
+        <p>
+          Unauthorized modification of firmware, reverse engineering of AI models, or use of
+          ADAPT products in safety-critical applications without prior written approval is prohibited.
+          ADAPT // COOL reserves the right to suspend access to cloud services for accounts in violation
+          of these terms.
+        </p>
+        <p>
+          These terms are subject to change. Registered users will receive 30 days notice prior
+          to any material update taking effect.
+        </p>
+      </section>
+
+      <section id="docs" class="legal-section">
+        <h2 class="legal-section__heading">Documentation</h2>
+        <p>
+          Technical documentation, integration guides, and API references are available to registered
+          ADAPT subscription holders via the ADAPT software dashboard. Public documentation covering
+          hardware setup and basic software configuration is freely accessible.
+        </p>
+        <p>
+          Enterprise customers receive dedicated documentation packages and offline-capable PDF exports
+          as part of their service agreements. For access requests or corrections to existing documentation,
+          contact us via the form above with topic "Support".
+        </p>
+      </section>
+
+      <section id="investors" class="legal-section">
+        <h2 class="legal-section__heading">Investor Information</h2>
+        <p>
+          ADAPT // COOL is currently in an early funding phase. Forward-looking statements made on
+          this website, including revenue projections and budget estimates, are provided for
+          informational purposes only and do not constitute a securities offering or investment advice.
+        </p>
+        <p>
+          Accredited investors interested in early-stage participation should reach out via the
+          contact form above using the "Investor inquiry" topic. All conversations are subject
+          to a mutual NDA before any non-public financial information is shared.
+        </p>
+        <p>
+          For questions specific to investor materials, contact us directly.
+        </p>
+      </section>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 5: CTA BAND
+         ═══════════════════════════════════════════════ -->
+    <section class="cta-band" aria-label="Prefer a call CTA">
+      <p class="cta-band__eyebrow">Another option</p>
+      <h2 class="cta-band__heading">Prefer a call?</h2>
+      <p class="cta-band__sub">
+        We are happy to jump on a quick call to discuss your requirements.
+        Reach out by email and we will find a time that works.
+      </p>
+      <div class="cta-band__btns">
+        <a href="mailto:hello@adaptcool.example?subject=Schedule%20a%20call" class="glow-btn">
+          Schedule via email &rarr;
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER (verbatim from assets/partials/footer.html)
+       ═══════════════════════════════════════════════ -->
+  <footer class="site-footer">
+
+    <div class="site-footer__inner">
+
+      <!-- Brand block -->
+      <div class="site-footer__brand">
+        <a class="brand" href="index.html" aria-label="ADAPT // COOL — Home">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+          <span>ADAPT <span>//</span> COOL</span>
+        </a>
+        <p>Predictive intelligence for liquid cooling.</p>
+      </div>
+
+      <!-- Column 1: Product -->
+      <div class="site-footer__col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="cryo-core/index.html">CRYO-CORE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Company -->
+      <div class="site-footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal -->
+      <div class="site-footer__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="contact.html#privacy">Privacy</a></li>
+          <li><a href="contact.html#terms">Terms</a></li>
+          <li><a href="contact.html#docs">Docs</a></li>
+          <li><a href="contact.html#investors">Investors</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom row -->
+    <div class="site-footer__bottom">
+      <span>&copy; 2026 ADAPT // COOL &middot; All rights reserved.</span>
+      <nav class="site-footer__bottom-links" aria-label="Legal links">
+        <a href="contact.html#privacy">Privacy</a>
+        <a href="contact.html#terms">Terms</a>
+        <a href="contact.html#docs">Docs</a>
+        <a href="contact.html#investors">Investors</a>
+      </nav>
+    </div>
+
+  </footer>
+
+</body>
+</html>

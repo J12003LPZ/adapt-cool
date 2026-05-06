@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CRYO-CORE NEURAL — AI cooler with predictive ML core that anticipates heat spikes before they happen. On-device sensors, proactive pump and fan control, cloud companion app." />
+  <title>NEURAL — CRYO-CORE — ADAPT // COOL</title>
+
+  <!-- GitHub Pages project-path support -->
+  <script>
+    (function () {
+      var projectName = 'stitch_next_gen_cpu_cooling';
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var fileName = segments[segments.length - 1] || '';
+      var projectIndex = segments.indexOf(projectName);
+      var hasFileName = fileName.indexOf('.') !== -1;
+      var basePath;
+
+      if (projectIndex !== -1 && !hasFileName && segments.length > projectIndex + 1) {
+        basePath = '/' + segments.slice(0, projectIndex + 1).join('/') + '/';
+      } else if (path.endsWith('/')) {
+        basePath = path;
+      } else if (!hasFileName) {
+        basePath = path + '/';
+      } else {
+        basePath = path.slice(0, path.lastIndexOf('/') + 1);
+      }
+
+      var base = document.createElement('base');
+      base.href = basePath;
+      document.head.insertBefore(base, document.head.firstChild);
+    }());
+  </script>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#849495",
+            "primary-fixed-dim": "#00dbe9",
+            "on-background": "#d9e2ff",
+            "on-secondary-fixed": "#001257",
+            "secondary-fixed-dim": "#b9c3ff",
+            "on-primary-fixed": "#002022",
+            "on-error": "#690005",
+            "surface-container": "#151f37",
+            "primary-fixed": "#7df4ff",
+            "outline-variant": "#3b494b",
+            "inverse-on-surface": "#263049",
+            "surface-container-highest": "#2a344e",
+            "surface-container-low": "#101b33",
+            "secondary-fixed": "#dde1ff",
+            "on-surface": "#d9e2ff",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed-variant": "#0033c0",
+            "inverse-primary": "#006970",
+            "tertiary-fixed-dim": "#b9c7e4",
+            "surface-container-high": "#1f2942",
+            "on-tertiary": "#233148",
+            "error-container": "#93000a",
+            "surface-variant": "#2a344e",
+            "surface-tint": "#00dbe9",
+            "tertiary-container": "#ccdaf8",
+            "on-secondary": "#00228a",
+            "on-surface-variant": "#b9cacb",
+            "surface-dim": "#07122a",
+            "tertiary-fixed": "#d6e3ff",
+            "on-primary": "#00363a",
+            "primary-container": "#00f0ff",
+            "error": "#ffb4ab",
+            "on-primary-fixed-variant": "#004f54",
+            "on-secondary-container": "#d6daff",
+            "primary": "#dbfcff",
+            "surface": "#07122a",
+            "background": "#07122a",
+            "on-primary-container": "#006970",
+            "on-tertiary-container": "#525f79",
+            "on-tertiary-fixed": "#0d1c32",
+            "secondary-container": "#0448ff",
+            "secondary": "#b9c3ff",
+            "surface-bright": "#2f3952",
+            "tertiary": "#f4f6ff",
+            "on-tertiary-fixed-variant": "#39475f",
+            "inverse-surface": "#d9e2ff",
+            "surface-container-lowest": "#030d25"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "stack-xs": "4px",
+            "stack-md": "24px",
+            "stack-sm": "12px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "stack-lg": "48px",
+            "unit": "8px",
+            "margin": "32px"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-md": ["Space Grotesk"],
+            "body-md": ["Inter"],
+            "h3": ["Space Grotesk"],
+            "body-lg": ["Inter"],
+            "h1": ["Space Grotesk"],
+            "h2": ["Space Grotesk"],
+            "mono-data": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "mono-data": ["14px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="../assets/css/site.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <!-- Nav interactivity -->
+  <script defer src="../assets/js/nav.js"></script>
+  <!-- Tab panels, smooth scroll, FAQ -->
+  <script defer src="../assets/js/ui.js"></script>
+
+  <style>
+    /* Nav toggle icon swap */
+    .nav-toggle__icon--close { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--open  { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--close { display: inline-block; }
+
+    /* ── Page layout ── */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: var(--color-background);
+      color: var(--color-on-surface);
+    }
+
+    main { flex: 1; }
+
+    /* ── Section shared ── */
+    .section-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-gutter);
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      margin: 0 0 12px;
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      margin: 0 0 48px;
+    }
+
+    .section-heading--center {
+      text-align: center;
+    }
+
+    .section-label--center {
+      text-align: center;
+    }
+
+    /* ── Hero ── */
+    .neural-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--color-background);
+      padding-top: 80px;
+    }
+
+    .neural-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 60% 30%, rgba(0, 219, 233, 0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 85% 80%, rgba(4, 72, 255, 0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .neural-hero__inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--container-max);
+      width: 100%;
+      margin: 0 auto;
+      padding: 60px var(--space-gutter) 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .neural-hero__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .neural-hero__ctas {
+        justify-content: center;
+      }
+    }
+
+    .neural-hero__eyebrow {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      padding: 4px 12px;
+      border-radius: 0.25rem;
+      margin-bottom: 20px;
+    }
+
+    .neural-hero__h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--color-primary);
+      margin: 0 0 20px;
+    }
+
+    .neural-hero__h1 span {
+      color: var(--electric-teal);
+    }
+
+    .neural-hero__subhead {
+      font-size: clamp(16px, 1.8vw, 18px);
+      line-height: 1.6;
+      color: var(--color-on-surface-variant);
+      max-width: 480px;
+      margin: 0 0 36px;
+    }
+
+    .neural-hero__ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .neural-hero__img-wrap {
+      position: relative;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+
+    .neural-hero__img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom left, transparent 50%, var(--color-background) 100%);
+    }
+
+    .neural-hero__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.1) saturate(0.85);
+      opacity: 0.9;
+    }
+
+    /* ── Feature cards ── */
+    .features-section {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0, 219, 233, 0.08);
+      border-bottom: 1px solid rgba(0, 219, 233, 0.08);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    @media (max-width: 800px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    .feature-card {
+      padding: 36px 28px;
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-card__icon {
+      font-size: 36px;
+      color: var(--electric-teal);
+    }
+
+    .feature-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3-size);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .feature-card__body {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* ── Tabs section ── */
+    .tabs-section {
+      padding: 80px 0;
+    }
+
+    .tabs-section__header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .tablist-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    [role="tablist"] {
+      display: inline-flex;
+      gap: 0;
+      border: 1px solid rgba(0, 219, 233, 0.2);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    [role="tab"] {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--color-on-surface-variant);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid rgba(0, 219, 233, 0.2);
+    }
+
+    [role="tab"]:last-child {
+      border-right: none;
+    }
+
+    [role="tab"][aria-selected="true"] {
+      background: rgba(0, 242, 255, 0.12);
+      color: var(--electric-teal);
+    }
+
+    [role="tab"]:hover:not([aria-selected="true"]) {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--color-primary);
+    }
+
+    [role="tabpanel"] {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .spec-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .spec-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .spec-table td {
+      padding: 14px 16px;
+      font-size: var(--text-body-md-size);
+      line-height: 1.5;
+    }
+
+    .spec-table td:first-child {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--color-on-surface-variant);
+      width: 40%;
+    }
+
+    .spec-table td:last-child {
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .ai-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .ai-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ai-bullets li .material-symbols-outlined {
+      font-size: 24px;
+      color: var(--electric-teal);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .ai-bullets li .bullet-text strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .ai-bullets li .bullet-text span {
+      font-size: var(--text-body-md-size);
+      color: var(--color-on-surface-variant);
+      line-height: 1.5;
+    }
+
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .integration-grid { grid-template-columns: 1fr; }
+    }
+
+    .integration-card {
+      padding: 24px;
+      border-radius: 0.5rem;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .integration-card .material-symbols-outlined {
+      font-size: 28px;
+      color: var(--electric-teal);
+      flex-shrink: 0;
+    }
+
+    .integration-card__title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin: 0 0 6px;
+    }
+
+    .integration-card__body {
+      font-size: var(--text-body-sm-size);
+      color: var(--color-on-surface-variant);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ── Outcomes strip ── */
+    .outcomes-section {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0, 219, 233, 0.08);
+      border-bottom: 1px solid rgba(0, 219, 233, 0.08);
+    }
+
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    @media (max-width: 800px) {
+      .outcomes-grid { grid-template-columns: 1fr; }
+    }
+
+    .outcome-card {
+      padding: 40px 28px;
+      border-radius: 0.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .outcome-card__stat {
+      font-family: var(--font-heading);
+      font-size: clamp(40px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--electric-teal);
+    }
+
+    .outcome-card__label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .outcome-card__desc {
+      font-size: var(--text-body-sm-size);
+      color: var(--color-on-surface-variant);
+      line-height: 1.5;
+      max-width: 220px;
+      margin: 0 auto;
+    }
+
+    /* ── CTA band ── */
+    .cta-band {
+      padding: 80px 0;
+    }
+
+    .cta-band__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-gutter);
+      text-align: center;
+    }
+
+    .cta-band__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      margin: 0 0 12px;
+    }
+
+    .cta-band__sub {
+      font-size: var(--text-body-lg-size);
+      color: var(--color-on-surface-variant);
+      margin: 0 0 36px;
+    }
+
+    .cta-band__actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+  <header class="site-header" data-active="cryo-core">
+
+    <!-- Brand / Logo -->
+    <div class="navbar-brand-group">
+    <a class="brand" href="../index.html" aria-label="ADAPT // COOL — Home">
+      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+      <span>ADAPT <span>//</span> COOL</span>
+    </a>
+    <span class="navbar-byline" aria-label="Founders and course group">
+      <span class="navbar-byline__full">Osamwonyi Noyiagbon, Leonardo Lopez, Mariano Mccehron | ENG 2575 - Group 3</span>
+      <span class="navbar-byline__short">ENG 2575 - Group 3</span>
+    </span>
+    </div>
+
+    <!-- Primary navigation -->
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="../index.html"               data-nav="home">Home</a>
+      <a href="../technology.html"          data-nav="technology">Technology</a>
+      <a href="index.html"     data-nav="cryo-core">CRYO-CORE</a>
+      <a href="../contact.html"             data-nav="contact">Contact</a>
+    </nav>
+
+    <!-- Hamburger toggle (visible on mobile only) -->
+    <button class="nav-toggle"
+            aria-controls="primary-nav"
+            aria-expanded="false"
+            aria-label="Open navigation">
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--open"  aria-hidden="true">menu</span>
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
+    </button>
+
+  </header>
+
+  <!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
+  <main>
+
+    <!-- ── 1. PRODUCT HERO ── -->
+    <section class="neural-hero" aria-labelledby="hero-heading">
+      <div class="neural-hero__bg" aria-hidden="true"></div>
+
+      <div class="neural-hero__inner">
+
+        <!-- Text column -->
+        <div class="neural-hero__text">
+          <span class="neural-hero__eyebrow">CRYO-CORE</span>
+          <h1 class="neural-hero__h1" id="hero-heading">
+            NEURAL —<br /><span>AI Cooler</span>
+          </h1>
+          <p class="neural-hero__subhead">
+            Predictive cooling intelligence that monitors temperature, workload, and environmental sensors
+            to anticipate heat spikes before they happen. Proactive control of pump speed, coolant flow,
+            and fan curves — so your system never throttles.
+          </p>
+          <div class="neural-hero__ctas">
+            <a href="#buy" class="glow-btn">
+              Add to build
+              <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">arrow_forward</span>
+            </a>
+            <a href="#specs"
+               class="btn-outline"
+               style="display:inline-flex;align-items:center;gap:6px;">
+              View specs
+              <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">expand_more</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Image column -->
+        <div class="neural-hero__img-wrap">
+          <img
+            src="../assets/img/img-05.jpg"
+            alt="CRYO-CORE NEURAL AI cooler with illuminated pump head and radiator assembly"
+            width="800"
+            height="600"
+            loading="lazy"
+          />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 2. KEY FEATURES ROW ── -->
+    <section class="features-section" aria-labelledby="features-heading">
+      <div class="section-inner">
+        <p class="section-label section-label--center">Built-in Intelligence</p>
+        <h2 class="section-heading section-heading--center" id="features-heading">
+          Three pillars of the NEURAL ecosystem
+        </h2>
+
+        <div class="features-grid">
+
+          <!-- Card 1: Predictive ML Core -->
+          <article class="feature-card glass-panel rim-light">
+            <span class="material-symbols-outlined feature-card__icon" aria-hidden="true">neurology</span>
+            <h3 class="feature-card__title">Predictive ML Core</h3>
+            <p class="feature-card__body">
+              An onboard self-learning ML model continuously analyzes workload patterns to predict heat spikes
+              seconds in advance, enabling proactive regulation before temperatures climb.
+            </p>
+          </article>
+
+          <!-- Card 2: On-device sensors -->
+          <article class="feature-card glass-panel rim-light">
+            <span class="material-symbols-outlined feature-card__icon" aria-hidden="true">sensors</span>
+            <h3 class="feature-card__title">On-device Sensors</h3>
+            <p class="feature-card__body">
+              Multi-point temperature, workload, and environmental sensors feed real-time telemetry into the
+              neural engine for millisecond-level response to changing thermal conditions.
+            </p>
+          </article>
+
+          <!-- Card 3: Cloud companion app -->
+          <article class="feature-card glass-panel rim-light">
+            <span class="material-symbols-outlined feature-card__icon" aria-hidden="true">cloud_sync</span>
+            <h3 class="feature-card__title">Cloud Companion App</h3>
+            <p class="feature-card__body">
+              Sync performance profiles and thermal analytics to the cloud. Review historical trends, push
+              firmware updates, and tune AI parameters from any device via the companion app.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3. TABS — Specs / AI / Integration ── -->
+    <section class="tabs-section" id="specs" aria-labelledby="tabs-heading">
+      <div class="section-inner">
+
+        <div class="tabs-section__header">
+          <p class="section-label section-label--center">Deep Dive</p>
+          <h2 class="section-heading section-heading--center" id="tabs-heading">
+            NEURAL — Technical Details
+          </h2>
+        </div>
+
+        <!-- Tablist -->
+        <div class="tablist-wrap">
+          <div role="tablist" aria-label="NEURAL product detail tabs">
+            <button
+              role="tab"
+              id="tab-specs"
+              aria-controls="panel-specs"
+              aria-selected="true"
+            >Specs</button>
+            <button
+              role="tab"
+              id="tab-ai"
+              aria-controls="panel-ai"
+              aria-selected="false"
+              tabindex="-1"
+            >AI</button>
+            <button
+              role="tab"
+              id="tab-integration"
+              aria-controls="panel-integration"
+              aria-selected="false"
+              tabindex="-1"
+            >Integration</button>
+          </div>
+        </div>
+
+        <!-- Tab panel: Specs (default visible) -->
+        <section
+          role="tabpanel"
+          id="panel-specs"
+          aria-labelledby="tab-specs"
+        >
+          <div class="glass-panel rim-light" style="border-radius:0.5rem;overflow:hidden;">
+            <table class="spec-table">
+              <caption style="display:none;">NEURAL technical specifications</caption>
+              <tbody>
+                <tr>
+                  <td>TDP Support</td>
+                  <td>Up to 400 W</td>
+                </tr>
+                <tr>
+                  <td>Fan Size</td>
+                  <td>3 × 120 mm (360 mm radiator)</td>
+                </tr>
+                <tr>
+                  <td>Fan Speed</td>
+                  <td>300 – 2 000 RPM (AI-controlled)</td>
+                </tr>
+                <tr>
+                  <td>Pump Speed</td>
+                  <td>Variable, up to 3 500 RPM</td>
+                </tr>
+                <tr>
+                  <td>Max Flow Rate</td>
+                  <td>3.5 L / min</td>
+                </tr>
+                <tr>
+                  <td>Acoustics</td>
+                  <td>&lt; 12 dBA (adaptive eco-mode)</td>
+                </tr>
+                <tr>
+                  <td>RGB</td>
+                  <td>ARGB Gen 2, 16.8 M colours</td>
+                </tr>
+                <tr>
+                  <td>Dimensions (radiator)</td>
+                  <td>394 × 120 × 27 mm</td>
+                </tr>
+                <tr>
+                  <td>Weight (assembled)</td>
+                  <td>1 180 g</td>
+                </tr>
+                <tr>
+                  <td>Warranty</td>
+                  <td>5 years</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab panel: AI (hidden on load) -->
+        <section
+          role="tabpanel"
+          id="panel-ai"
+          aria-labelledby="tab-ai"
+          hidden
+        >
+          <div class="glass-panel rim-light" style="border-radius:0.5rem;padding:40px 36px;">
+            <ul class="ai-bullets">
+              <li>
+                <span class="material-symbols-outlined" aria-hidden="true">neurology</span>
+                <div class="bullet-text">
+                  <strong>Self-Learning ML Model</strong>
+                  <span>
+                    The onboard neural engine runs a lightweight self-learning model trained on workload
+                    signatures. It continuously updates its weights to predict heat spikes with
+                    high confidence, proactively adjusting pump speed and fan curves before CPU
+                    temperatures spike — eliminating reactive throttling entirely.
+                  </span>
+                </div>
+              </li>
+              <li>
+                <span class="material-symbols-outlined" aria-hidden="true">sensors</span>
+                <div class="bullet-text">
+                  <strong>Multi-Point Telemetry</strong>
+                  <span>
+                    Six embedded temperature sensors, a workload-activity monitor, and an ambient
+                    environmental sensor feed data into the neural engine at 10 ms intervals.
+                    This real-time telemetry underpins the model's ability to distinguish gaming
+                    bursts, rendering jobs, and idle states with millisecond precision.
+                  </span>
+                </div>
+              </li>
+              <li>
+                <span class="material-symbols-outlined" aria-hidden="true">auto_awesome</span>
+                <div class="bullet-text">
+                  <strong>Continuous Self-Optimisation</strong>
+                  <span>
+                    After each session the model re-evaluates its predictions against actual
+                    thermal outcomes. Missed predictions trigger weight adjustments so the
+                    system becomes progressively quieter, more efficient, and more accurate
+                    the longer it runs on your specific hardware and usage pattern.
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Tab panel: Integration (hidden on load) -->
+        <section
+          role="tabpanel"
+          id="panel-integration"
+          aria-labelledby="tab-integration"
+          hidden
+        >
+          <div class="glass-panel rim-light" style="border-radius:0.5rem;padding:40px 36px;">
+            <div class="integration-grid">
+
+              <div class="integration-card glass-panel" style="border-radius:0.5rem;">
+                <span class="material-symbols-outlined" aria-hidden="true">phone_iphone</span>
+                <div>
+                  <p class="integration-card__title">Companion App</p>
+                  <p class="integration-card__body">
+                    Visualise thermal history, push AI model updates, and configure custom performance
+                    profiles. Available on Windows and macOS (preview).
+                  </p>
+                </div>
+              </div>
+
+              <div class="integration-card glass-panel" style="border-radius:0.5rem;">
+                <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+                <div>
+                  <p class="integration-card__title">ARGB Sync</p>
+                  <p class="integration-card__body">
+                    ARGB Gen 2 header syncs with all major RGB ecosystems — ASUS Aura,
+                    MSI Mystic Light, Gigabyte RGB Fusion, and ASRock Polychrome. Full
+                    16.8 M colour support with per-LED control.
+                  </p>
+                </div>
+              </div>
+
+              <div class="integration-card glass-panel" style="border-radius:0.5rem;">
+                <span class="material-symbols-outlined" aria-hidden="true">desktop_windows</span>
+                <div>
+                  <p class="integration-card__title">Windows</p>
+                  <p class="integration-card__body">
+                    Native Windows 10 / 11 driver with system-tray control. Integrates with
+                    HWINFO64 and HWiNFO telemetry for third-party monitoring.
+                  </p>
+                </div>
+              </div>
+
+              <div class="integration-card glass-panel" style="border-radius:0.5rem;">
+                <span class="material-symbols-outlined" aria-hidden="true">laptop_mac</span>
+                <div>
+                  <p class="integration-card__title">macOS Preview</p>
+                  <p class="integration-card__body">
+                    A macOS companion app is in closed beta. Sign up via the cloud portal
+                    to join early access and help shape cross-platform feature parity.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- ── 4. OUTCOMES STRIP ── -->
+    <section class="outcomes-section" aria-labelledby="outcomes-heading">
+      <div class="section-inner">
+        <p class="section-label section-label--center">Measured Results</p>
+        <h2 class="section-heading section-heading--center" id="outcomes-heading">
+          Performance. Efficiency. Noise.
+        </h2>
+
+        <div class="outcomes-grid">
+
+          <article class="outcome-card glass-panel rim-light">
+            <span class="outcome-card__stat" aria-label="Up to 18 percent faster">+18%</span>
+            <span class="outcome-card__label">Performance</span>
+            <p class="outcome-card__desc">
+              Sustained boost clock uplift in multi-core workloads versus a fixed-curve competitor
+              cooler, thanks to proactive coolant flow before heat spikes arrive.
+            </p>
+          </article>
+
+          <article class="outcome-card glass-panel rim-light">
+            <span class="outcome-card__stat" aria-label="Up to 31 percent more efficient">31%</span>
+            <span class="outcome-card__label">Efficiency</span>
+            <p class="outcome-card__desc">
+              Pump and fan power draw reduced by 31 % in light-workload scenarios through
+              AI-driven eco-modes that throttle coolant flow and fan curves automatically.
+            </p>
+          </article>
+
+          <article class="outcome-card glass-panel rim-light">
+            <span class="outcome-card__stat" aria-label="Less than 12 decibels">&#60;12 dBA</span>
+            <span class="outcome-card__label">Noise</span>
+            <p class="outcome-card__desc">
+              Adaptive noise floor optimisation keeps acoustics below 12 dBA at idle and
+              light loads, rising only when the ML model determines thermal headroom demands it.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5. CTA BAND ── -->
+    <section class="cta-band" id="buy" aria-labelledby="cta-heading">
+      <div class="cta-band__inner">
+        <p class="section-label section-label--center">What's next</p>
+        <h2 class="cta-band__heading" id="cta-heading">Build with NEURAL.</h2>
+        <p class="cta-band__sub">
+          Explore the full CRYO-CORE liquid cooling range or go straight to the Liquid series.
+        </p>
+        <div class="cta-band__actions">
+          <a href="liquid.html" class="glow-btn">
+            See Liquid
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">arrow_forward</span>
+          </a>
+          <a href="index.html"
+             class="btn-outline"
+             style="display:inline-flex;align-items:center;gap:6px;">
+            Back to CRYO-CORE
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">arrow_back</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+  <footer class="site-footer">
+
+    <div class="site-footer__inner">
+
+      <!-- Brand block -->
+      <div class="site-footer__brand">
+        <a class="brand" href="../index.html" aria-label="ADAPT // COOL — Home">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+          <span>ADAPT <span>//</span> COOL</span>
+        </a>
+        <p>Predictive intelligence for liquid cooling.</p>
+      </div>
+
+      <!-- Column 1: Product -->
+      <div class="site-footer__col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../technology.html">Technology</a></li>
+          <li><a href="index.html">CRYO-CORE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Company -->
+      <div class="site-footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../leadership.html">Leadership</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal -->
+      <div class="site-footer__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../contact.html#privacy">Privacy</a></li>
+          <li><a href="../contact.html#terms">Terms</a></li>
+          <li><a href="../contact.html#docs">Docs</a></li>
+          <li><a href="../contact.html#investors">Investors</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom row -->
+    <div class="site-footer__bottom">
+      <span>&copy; 2026 ADAPT // COOL &middot; All rights reserved.</span>
+      <nav class="site-footer__bottom-links" aria-label="Legal links">
+        <a href="../contact.html#privacy">Privacy</a>
+        <a href="../contact.html#terms">Terms</a>
+        <a href="../contact.html#docs">Docs</a>
+        <a href="../contact.html#investors">Investors</a>
+      </nav>
+    </div>
+
+  </footer>
+
+</body>
+</html>

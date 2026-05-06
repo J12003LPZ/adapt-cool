@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ADAPT // COOL Technology — How AI-driven adaptive liquid cooling predicts heat spikes before they occur. Embedded sensors, ML pipeline, and intelligent actuators explained." />
+  <title>Technology — ADAPT // COOL</title>
+
+  <!-- GitHub Pages project-path support -->
+  <script>
+    (function () {
+      var projectName = 'stitch_next_gen_cpu_cooling';
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var fileName = segments[segments.length - 1] || '';
+      var projectIndex = segments.indexOf(projectName);
+      var hasFileName = fileName.indexOf('.') !== -1;
+      var basePath;
+
+      if (projectIndex !== -1 && !hasFileName && segments.length > projectIndex + 1) {
+        basePath = '/' + segments.slice(0, projectIndex + 1).join('/') + '/';
+      } else if (path.endsWith('/')) {
+        basePath = path;
+      } else if (!hasFileName) {
+        basePath = path + '/';
+      } else {
+        basePath = path.slice(0, path.lastIndexOf('/') + 1);
+      }
+
+      var base = document.createElement('base');
+      base.href = basePath;
+      document.head.insertBefore(base, document.head.firstChild);
+    }());
+  </script>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#849495",
+            "primary-fixed-dim": "#00dbe9",
+            "on-background": "#d9e2ff",
+            "on-secondary-fixed": "#001257",
+            "secondary-fixed-dim": "#b9c3ff",
+            "on-primary-fixed": "#002022",
+            "on-error": "#690005",
+            "surface-container": "#151f37",
+            "primary-fixed": "#7df4ff",
+            "outline-variant": "#3b494b",
+            "inverse-on-surface": "#263049",
+            "surface-container-highest": "#2a344e",
+            "surface-container-low": "#101b33",
+            "secondary-fixed": "#dde1ff",
+            "on-surface": "#d9e2ff",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed-variant": "#0033c0",
+            "inverse-primary": "#006970",
+            "tertiary-fixed-dim": "#b9c7e4",
+            "surface-container-high": "#1f2942",
+            "on-tertiary": "#233148",
+            "error-container": "#93000a",
+            "surface-variant": "#2a344e",
+            "surface-tint": "#00dbe9",
+            "tertiary-container": "#ccdaf8",
+            "on-secondary": "#00228a",
+            "on-surface-variant": "#b9cacb",
+            "surface-dim": "#07122a",
+            "tertiary-fixed": "#d6e3ff",
+            "on-primary": "#00363a",
+            "primary-container": "#00f0ff",
+            "error": "#ffb4ab",
+            "on-primary-fixed-variant": "#004f54",
+            "on-secondary-container": "#d6daff",
+            "primary": "#dbfcff",
+            "surface": "#07122a",
+            "background": "#07122a",
+            "on-primary-container": "#006970",
+            "on-tertiary-container": "#525f79",
+            "on-tertiary-fixed": "#0d1c32",
+            "secondary-container": "#0448ff",
+            "secondary": "#b9c3ff",
+            "surface-bright": "#2f3952",
+            "tertiary": "#f4f6ff",
+            "on-tertiary-fixed-variant": "#39475f",
+            "inverse-surface": "#d9e2ff",
+            "surface-container-lowest": "#030d25"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "stack-xs": "4px",
+            "stack-md": "24px",
+            "stack-sm": "12px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "stack-lg": "48px",
+            "unit": "8px",
+            "margin": "32px"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-md": ["Space Grotesk"],
+            "body-md": ["Inter"],
+            "h3": ["Space Grotesk"],
+            "body-lg": ["Inter"],
+            "h1": ["Space Grotesk"],
+            "h2": ["Space Grotesk"],
+            "mono-data": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "mono-data": ["14px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="assets/css/site.css" />
+
+  <!-- Nav interactivity -->
+  <script defer src="assets/js/nav.js"></script>
+
+  <style>
+    /* Nav toggle icon swap */
+    .nav-toggle__icon--close { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--open  { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--close { display: inline-block; }
+
+    /* ── Section shared ── */
+    .section-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-gutter);
+    }
+
+    /* ── Hero ── */
+    .tech-hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--color-background);
+    }
+
+    .tech-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0, 219, 233, 0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 35% at 20% 90%, rgba(4, 72, 255, 0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .tech-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 120px var(--space-gutter) 80px;
+      text-align: center;
+    }
+
+    .tech-hero__eyebrow {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      margin: 0 0 24px;
+    }
+
+    .tech-hero__h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 5.5vw, 68px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--color-primary);
+      margin: 0 0 24px;
+    }
+
+    .tech-hero__sub {
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── Sensor cards ── */
+    .sensors {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0, 219, 231, 0.10);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-align: center;
+      margin: 0 0 12px;
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      text-align: center;
+      margin: 0 0 48px;
+    }
+
+    .sensor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .sensor-card {
+      padding: 36px 28px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sensor-card__icon {
+      font-size: 40px;
+      color: var(--electric-teal);
+      line-height: 1;
+    }
+
+    .sensor-card__name {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-md-size);
+      font-weight: var(--text-headline-md-weight);
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .sensor-card__copy {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* ── ML Pipeline ribbon ── */
+    .pipeline {
+      padding: 80px 0;
+      background: var(--color-background);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .pipeline-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+      margin-top: 0;
+      position: relative;
+    }
+
+    .pipeline-ribbon::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(0, 219, 233, 0.35), transparent);
+      pointer-events: none;
+    }
+
+    .pipe-step {
+      padding: 28px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+      position: relative;
+    }
+
+    .pipe-step__num {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 219, 233, 0.30);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 219, 233, 0.06);
+      flex-shrink: 0;
+    }
+
+    .pipe-step__num span {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--electric-teal);
+      line-height: 1;
+    }
+
+    .pipe-step__label {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-md-size);
+      font-weight: var(--text-headline-md-weight);
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .pipe-step__sub {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-on-surface-variant);
+      margin: 0;
+      max-width: 200px;
+    }
+
+    .pipe-step__tag {
+      display: inline-block;
+      background: rgba(0, 219, 233, 0.10);
+      border: 1px solid rgba(0, 219, 233, 0.20);
+      border-radius: 2px;
+      padding: 2px 8px;
+      font-family: var(--font-heading);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--electric-teal);
+    }
+
+    /* ── Actuators ── */
+    .actuators {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .actuator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .actuator-card {
+      padding: 36px 28px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .actuator-card__icon {
+      font-size: 36px;
+      color: var(--electric-teal);
+      line-height: 1;
+    }
+
+    .actuator-card__name {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-md-size);
+      font-weight: var(--text-headline-md-weight);
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .actuator-card__copy {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* ── Outcomes strip ── */
+    .outcomes {
+      padding: 80px 0;
+      background: var(--color-background);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .outcome-card {
+      padding: 40px 32px;
+      border-radius: 2px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .outcome-card__stat {
+      font-family: var(--font-heading);
+      font-size: clamp(44px, 5vw, 64px);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--electric-teal);
+    }
+
+    .outcome-card__label {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-md-size);
+      font-weight: var(--text-headline-md-weight);
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .outcome-card__copy {
+      font-size: var(--text-body-sm-size, 14px);
+      line-height: 1.5;
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* ── Software Platform ── */
+    .platform {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .platform-grid { grid-template-columns: 1fr; gap: 40px; }
+      .pipeline-ribbon { grid-template-columns: 1fr 1fr; }
+      .pipeline-ribbon::before { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .pipeline-ribbon { grid-template-columns: 1fr; }
+    }
+
+    .platform-img-wrap {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .platform-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .platform-img-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    .platform-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .platform-copy__eyebrow {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+    }
+
+    .platform-copy__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .platform-copy__body {
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    .platform-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .platform-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .platform-feature__icon {
+      font-size: 20px;
+      color: var(--electric-teal);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .platform-feature__text {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+    }
+
+    /* ── CTA Band ── */
+    /* -- Startup budget -- */
+    .budget {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0, 219, 231, 0.10);
+      border-bottom: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .budget-panel {
+      padding: 48px;
+      border-radius: 0.5rem;
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .budget-row__name,
+    .budget-row__range {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .budget-row__name {
+      font-size: var(--text-body-md-size);
+      color: var(--color-on-surface-variant);
+      padding-right: 24px;
+    }
+
+    .budget-row__range {
+      font-family: var(--font-heading);
+      font-size: var(--text-body-md-size);
+      font-weight: 600;
+      color: var(--electric-teal);
+      text-align: right;
+    }
+
+    .budget-row__sub {
+      grid-column: 1 / -1;
+      font-size: 12px;
+      color: var(--color-on-surface-variant);
+      opacity: 0.72;
+      padding: 0 0 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      line-height: 1.4;
+    }
+
+    .budget-total {
+      margin: 32px 0 0;
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.2;
+      color: var(--color-primary);
+      text-align: center;
+    }
+
+    .budget-total span {
+      color: var(--electric-teal);
+    }
+
+    .budget-note {
+      max-width: 760px;
+      margin: 18px auto 0;
+      text-align: center;
+      color: var(--color-on-surface-variant);
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+    }
+
+    @media (max-width: 640px) {
+      .budget-panel { padding: 28px 20px; }
+      .budget-grid { grid-template-columns: 1fr; }
+      .budget-row__range { text-align: left; padding-top: 0; }
+    }
+
+    .cta-band {
+      padding: 80px var(--space-gutter);
+      text-align: center;
+      background: var(--color-background);
+      border-top: 1px solid rgba(0, 219, 231, 0.10);
+    }
+
+    .cta-band__eyebrow {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      margin: 0 0 20px;
+    }
+
+    .cta-band__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      margin: 0 0 16px;
+    }
+
+    .cta-band__sub {
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-band__btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    @media (max-width: 480px) {
+      .cta-band__btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       SITE HEADER
+       data-active="technology"
+       ═══════════════════════════════════════════════ -->
+  <header class="site-header" data-active="technology">
+
+    <!-- Brand / Logo -->
+    <div class="navbar-brand-group">
+    <a class="brand" href="index.html" aria-label="ADAPT // COOL — Home">
+      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+      <span>ADAPT <span>//</span> COOL</span>
+    </a>
+    <span class="navbar-byline" aria-label="Founders and course group">
+      <span class="navbar-byline__full">Osamwonyi Noyiagbon, Leonardo Lopez, Mariano Mccehron | ENG 2575 - Group 3</span>
+      <span class="navbar-byline__short">ENG 2575 - Group 3</span>
+    </span>
+    </div>
+
+    <!-- Primary navigation -->
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html"               data-nav="home">Home</a>
+      <a href="technology.html"          data-nav="technology">Technology</a>
+      <a href="cryo-core/index.html"     data-nav="cryo-core">CRYO-CORE</a>
+      <a href="contact.html"             data-nav="contact">Contact</a>
+    </nav>
+
+    <!-- Hamburger toggle -->
+    <button class="nav-toggle"
+            aria-controls="primary-nav"
+            aria-expanded="false"
+            aria-label="Open navigation">
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--open"  aria-hidden="true">menu</span>
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
+    </button>
+
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 1: HERO
+         ═══════════════════════════════════════════════ -->
+    <section class="tech-hero blueprint-grid" aria-label="Technology hero">
+      <div class="tech-hero__bg" aria-hidden="true"></div>
+
+      <div class="tech-hero__content">
+        <p class="tech-hero__eyebrow">Predictive Thermal Engine — Active</p>
+
+        <h1 class="tech-hero__h1">The Science of<br>Predictive Cooling</h1>
+
+        <p class="tech-hero__sub">
+          Traditional cooling reacts after heat appears. ADAPT // COOL uses
+          embedded sensors and on-device machine learning to forecast heat spikes
+          before they hit the silicon — then proactively regulates pump speed,
+          coolant flow, and fan curves to prevent throttling entirely.
+          The result: continuous adaptation that improves with every workload.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 2: THREE SENSOR TYPES
+         ═══════════════════════════════════════════════ -->
+    <section class="sensors" aria-labelledby="sensors-heading">
+      <div class="section-inner">
+
+        <p class="section-label">Embedded Intelligence</p>
+        <h2 class="section-heading" id="sensors-heading">Three Sensor Types</h2>
+
+        <div class="sensor-grid">
+
+          <!-- Temperature Sensor -->
+          <article class="sensor-card glass-panel rim-light">
+            <span class="material-symbols-outlined sensor-card__icon" aria-hidden="true">device_thermostat</span>
+            <h3 class="sensor-card__name">Temperature</h3>
+            <p class="sensor-card__copy">
+              High-resolution thermal diodes sample die and coolant temperatures
+              hundreds of times per second, giving the ML model a precise, continuous
+              heat map of every active core and memory bank.
+            </p>
+          </article>
+
+          <!-- Workload Sensor -->
+          <article class="sensor-card glass-panel rim-light">
+            <span class="material-symbols-outlined sensor-card__icon" aria-hidden="true">analytics</span>
+            <h3 class="sensor-card__name">Workload</h3>
+            <p class="sensor-card__copy">
+              CPU and GPU utilization telemetry streams directly to the prediction
+              engine. The model recognises workload-intensive operations — render
+              bursts, gaming sessions, compile jobs — and pre-arms the cooling
+              system milliseconds before the thermal threshold is reached.
+            </p>
+          </article>
+
+          <!-- Environmental Sensor -->
+          <article class="sensor-card glass-panel rim-light">
+            <span class="material-symbols-outlined sensor-card__icon" aria-hidden="true">wb_sunny</span>
+            <h3 class="sensor-card__name">Environmental</h3>
+            <p class="sensor-card__copy">
+              Ambient temperature, humidity, and chassis airflow are factored into
+              every prediction. A warm room mid-summer and a cold server rack in
+              winter receive different cooling curves — automatically, with no user
+              intervention required.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 3: THE ML PIPELINE
+         ═══════════════════════════════════════════════ -->
+    <section class="pipeline" aria-labelledby="pipeline-heading">
+      <div class="section-inner">
+
+        <p class="section-label">How It Works</p>
+        <h2 class="section-heading" id="pipeline-heading">The ML Pipeline</h2>
+
+        <div class="pipeline-ribbon">
+
+          <!-- Step 1: Sense -->
+          <div class="pipe-step glass-panel rim-light">
+            <div class="pipe-step__num"><span>1</span></div>
+            <span class="pipe-step__tag">Input</span>
+            <p class="pipe-step__label">Sense</p>
+            <p class="pipe-step__sub">
+              Temperature, workload, and environmental sensors stream raw telemetry
+              at sub-millisecond intervals.
+            </p>
+          </div>
+
+          <!-- Step 2: Predict -->
+          <div class="pipe-step glass-panel rim-light">
+            <div class="pipe-step__num"><span>2</span></div>
+            <span class="pipe-step__tag">ML Model</span>
+            <p class="pipe-step__label">Predict</p>
+            <p class="pipe-step__sub">
+              A lightweight on-device neural network forecasts thermal load
+              up to 200 ms ahead of the spike — 99.8 % accuracy in validation.
+            </p>
+          </div>
+
+          <!-- Step 3: Decide -->
+          <div class="pipe-step glass-panel rim-light">
+            <div class="pipe-step__num"><span>3</span></div>
+            <span class="pipe-step__tag">Logic</span>
+            <p class="pipe-step__label">Decide</p>
+            <p class="pipe-step__sub">
+              The control layer weighs performance targets, noise budgets, and
+              eco-mode constraints to select the optimal actuator commands.
+            </p>
+          </div>
+
+          <!-- Step 4: Actuate -->
+          <div class="pipe-step glass-panel rim-light">
+            <div class="pipe-step__num"><span>4</span></div>
+            <span class="pipe-step__tag">Output</span>
+            <p class="pipe-step__label">Actuate</p>
+            <p class="pipe-step__sub">
+              Pump speed, coolant flow, and fan curves are adjusted in real time
+              before the sensor even registers the spike.
+            </p>
+          </div>
+
+          <!-- Step 5: Learn -->
+          <div class="pipe-step glass-panel rim-light">
+            <div class="pipe-step__num"><span>5</span></div>
+            <span class="pipe-step__tag">Feedback</span>
+            <p class="pipe-step__label">Learn</p>
+            <p class="pipe-step__sub">
+              Every cycle feeds back into the model. The system continually adapts
+              to your unique hardware, workload patterns, and environment.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 4: THREE ACTUATORS
+         ═══════════════════════════════════════════════ -->
+    <section class="actuators" aria-labelledby="actuators-heading">
+      <div class="section-inner">
+
+        <p class="section-label">Proactive Control</p>
+        <h2 class="section-heading" id="actuators-heading">Three Actuators</h2>
+
+        <div class="actuator-grid">
+
+          <!-- Pump Speed -->
+          <article class="actuator-card glass-panel rim-light">
+            <span class="material-symbols-outlined actuator-card__icon" aria-hidden="true">settings_input_component</span>
+            <h3 class="actuator-card__name">Pump Speed</h3>
+            <p class="actuator-card__copy">
+              The pump is the first actuator to respond. By proactively ramping
+              RPM ahead of a predicted thermal spike, coolant arrives at the cold
+              plate before heat accumulates — eliminating the lag inherent in
+              reactive cooling architectures. At idle, pump speed drops to
+              whisper-quiet minimums.
+            </p>
+          </article>
+
+          <!-- Coolant Flow -->
+          <article class="actuator-card glass-panel rim-light">
+            <span class="material-symbols-outlined actuator-card__icon" aria-hidden="true">water</span>
+            <h3 class="actuator-card__name">Coolant Flow</h3>
+            <p class="actuator-card__copy">
+              Flow rate is modulated independently of pump speed in multi-zone
+              configurations. The AI directs coolant exactly where it is predicted
+              to be needed — CPU, GPU, or VRM — delivering 30 % less pump energy
+              waste compared to static-configuration AIO systems.
+            </p>
+          </article>
+
+          <!-- Fan Curves -->
+          <article class="actuator-card glass-panel rim-light">
+            <span class="material-symbols-outlined actuator-card__icon" aria-hidden="true">mode_fan</span>
+            <h3 class="actuator-card__name">Fan Curves</h3>
+            <p class="actuator-card__copy">
+              Intelligent fan curve generation replaces static BIOS profiles.
+              The system balances acoustic comfort with extreme thermal dissipation,
+              proactively stepping fan speeds based on predicted load rather than
+              reacting to rising temperatures that have already slipped past spec.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 5: OUTCOMES STRIP
+         ═══════════════════════════════════════════════ -->
+    <section class="outcomes" aria-labelledby="outcomes-heading">
+      <div class="section-inner">
+
+        <p class="section-label">Measurable Results</p>
+        <h2 class="section-heading" id="outcomes-heading">What Predictive Cooling Delivers</h2>
+
+        <div class="outcomes-grid">
+
+          <!-- Performance -->
+          <div class="outcome-card glass-panel rim-light">
+            <p class="outcome-card__stat">Zero</p>
+            <h3 class="outcome-card__label">Thermal Throttling</h3>
+            <p class="outcome-card__copy">
+              Predictive pump control removes throttling events entirely.
+              Silicon runs at sustained maximum voltage — no performance lost
+              to reactive thermal catch-up.
+            </p>
+          </div>
+
+          <!-- Energy Efficiency -->
+          <div class="outcome-card glass-panel rim-light">
+            <p class="outcome-card__stat">-30%</p>
+            <h3 class="outcome-card__label">Energy Efficiency Gain</h3>
+            <p class="outcome-card__copy">
+              AI-driven flow regulation delivers coolant only when and where
+              it is predicted to be needed, cutting pump energy waste by up to
+              30 % compared to conventional AIO systems.
+            </p>
+          </div>
+
+          <!-- Noise Reduction -->
+          <div class="outcome-card glass-panel rim-light">
+            <p class="outcome-card__stat">-40%</p>
+            <h3 class="outcome-card__label">Noise Reduction</h3>
+            <p class="outcome-card__copy">
+              Eco modes and predictive fan curves keep the system near-silent
+              at idle and during light workloads, cutting audible fan noise by
+              up to 40 % versus always-on reactive configurations.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 6: SOFTWARE PLATFORM
+         ═══════════════════════════════════════════════ -->
+    <section class="platform" aria-labelledby="platform-heading">
+      <div class="section-inner">
+
+        <div class="platform-grid">
+
+          <!-- Image column -->
+          <div class="platform-img-wrap glass-panel rim-light">
+            <img
+              src="assets/img/img-08.jpg"
+              alt="ADAPT // COOL desktop and cloud software dashboard showing real-time predictive cooling metrics and eco-mode controls"
+              width="800"
+              height="600"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Copy column -->
+          <div class="platform-copy">
+            <span class="platform-copy__eyebrow">Desktop &amp; Cloud Platform</span>
+            <h2 class="platform-copy__heading" id="platform-heading">
+              Self-Learning Software.<br>Every Environment.
+            </h2>
+            <p class="platform-copy__body">
+              The ADAPT // COOL software platform connects your hardware to a
+              continuous intelligence loop. On the desktop, a lightweight agent
+              monitors telemetry in real time and surfaces live thermal health
+              dashboards. In the cloud, anonymised aggregate data trains the
+              next generation of prediction models — so every unit gets smarter
+              over time, not just yours.
+            </p>
+
+            <div class="platform-features">
+
+              <div class="platform-feature">
+                <span class="material-symbols-outlined platform-feature__icon" aria-hidden="true">psychology</span>
+                <p class="platform-feature__text">
+                  <strong style="color:var(--color-primary);">Self-Learning Engine</strong> —
+                  The system improves over time, adapting cooling curves to your unique
+                  usage patterns without any manual tuning.
+                </p>
+              </div>
+
+              <div class="platform-feature">
+                <span class="material-symbols-outlined platform-feature__icon" aria-hidden="true">eco</span>
+                <p class="platform-feature__text">
+                  <strong style="color:var(--color-primary);">Eco Modes</strong> —
+                  User-selectable profiles bias the prediction logic toward silence
+                  and efficiency, reducing power draw during creative and office workloads.
+                </p>
+              </div>
+
+              <div class="platform-feature">
+                <span class="material-symbols-outlined platform-feature__icon" aria-hidden="true">cloud_sync</span>
+                <p class="platform-feature__text">
+                  <strong style="color:var(--color-primary);">Cloud Optimisation</strong> —
+                  Opt-in cloud sync enables fleet-level analysis for enterprise deployments,
+                  with Submerge systems benefiting from data-center-scale model refinements.
+                </p>
+              </div>
+
+              <div class="platform-feature">
+                <span class="material-symbols-outlined platform-feature__icon" aria-hidden="true">model_training</span>
+                <p class="platform-feature__text">
+                  <strong style="color:var(--color-primary);">Continuous Adaptation</strong> —
+                  Unlike static configurations, ADAPT // COOL maximises efficiency every
+                  second, learning from every workload cycle to sharpen its forecasts.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 7: CTA BAND
+         ═══════════════════════════════════════════════ -->
+    <section class="cta-band" aria-label="Call to action">
+      <p class="cta-band__eyebrow">Ready to experience it?</p>
+      <h2 class="cta-band__heading">Explore CRYO-CORE</h2>
+      <p class="cta-band__sub">
+        The same predictive intelligence engine powers both product families —
+        from a single desktop rig to an entire data-center rack.
+      </p>
+      <div class="cta-band__btns">
+        <a href="cryo-core/index.html" class="glow-btn">
+          See CRYO-CORE product lines &rarr;
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER (verbatim from assets/partials/footer.html)
+       ═══════════════════════════════════════════════ -->
+  <footer class="site-footer">
+
+    <div class="site-footer__inner">
+
+      <!-- Brand block -->
+      <div class="site-footer__brand">
+        <a class="brand" href="index.html" aria-label="ADAPT // COOL — Home">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+          <span>ADAPT <span>//</span> COOL</span>
+        </a>
+        <p>Predictive intelligence for liquid cooling.</p>
+      </div>
+
+      <!-- Column 1: Product -->
+      <div class="site-footer__col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="cryo-core/index.html">CRYO-CORE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Company -->
+      <div class="site-footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal -->
+      <div class="site-footer__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="contact.html#privacy">Privacy</a></li>
+          <li><a href="contact.html#terms">Terms</a></li>
+          <li><a href="contact.html#docs">Docs</a></li>
+          <li><a href="contact.html#investors">Investors</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom row -->
+    <div class="site-footer__bottom">
+      <span>&copy; 2026 ADAPT // COOL &middot; All rights reserved.</span>
+      <nav class="site-footer__bottom-links" aria-label="Legal links">
+        <a href="contact.html#privacy">Privacy</a>
+        <a href="contact.html#terms">Terms</a>
+        <a href="contact.html#docs">Docs</a>
+        <a href="contact.html#investors">Investors</a>
+      </nav>
+    </div>
+
+  </footer>
+
+</body>
+</html>

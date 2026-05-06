@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ADAPT // COOL — AI-driven adaptive liquid cooling that predicts heat spikes before they happen for PCs, gaming rigs, workstations, and data centers." />
+  <title>ADAPT // COOL — Predictive Liquid Cooling for Every Scale</title>
+
+  <!-- GitHub Pages project-path support -->
+  <script>
+    (function () {
+      var projectName = 'stitch_next_gen_cpu_cooling';
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var fileName = segments[segments.length - 1] || '';
+      var projectIndex = segments.indexOf(projectName);
+      var hasFileName = fileName.indexOf('.') !== -1;
+      var basePath;
+
+      if (projectIndex !== -1 && !hasFileName && segments.length > projectIndex + 1) {
+        basePath = '/' + segments.slice(0, projectIndex + 1).join('/') + '/';
+      } else if (path.endsWith('/')) {
+        basePath = path;
+      } else if (!hasFileName) {
+        basePath = path + '/';
+      } else {
+        basePath = path.slice(0, path.lastIndexOf('/') + 1);
+      }
+
+      var base = document.createElement('base');
+      base.href = basePath;
+      document.head.insertBefore(base, document.head.firstChild);
+    }());
+  </script>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#849495",
+            "primary-fixed-dim": "#00dbe9",
+            "on-background": "#d9e2ff",
+            "on-secondary-fixed": "#001257",
+            "secondary-fixed-dim": "#b9c3ff",
+            "on-primary-fixed": "#002022",
+            "on-error": "#690005",
+            "surface-container": "#151f37",
+            "primary-fixed": "#7df4ff",
+            "outline-variant": "#3b494b",
+            "inverse-on-surface": "#263049",
+            "surface-container-highest": "#2a344e",
+            "surface-container-low": "#101b33",
+            "secondary-fixed": "#dde1ff",
+            "on-surface": "#d9e2ff",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed-variant": "#0033c0",
+            "inverse-primary": "#006970",
+            "tertiary-fixed-dim": "#b9c7e4",
+            "surface-container-high": "#1f2942",
+            "on-tertiary": "#233148",
+            "error-container": "#93000a",
+            "surface-variant": "#2a344e",
+            "surface-tint": "#00dbe9",
+            "tertiary-container": "#ccdaf8",
+            "on-secondary": "#00228a",
+            "on-surface-variant": "#b9cacb",
+            "surface-dim": "#07122a",
+            "tertiary-fixed": "#d6e3ff",
+            "on-primary": "#00363a",
+            "primary-container": "#00f0ff",
+            "error": "#ffb4ab",
+            "on-primary-fixed-variant": "#004f54",
+            "on-secondary-container": "#d6daff",
+            "primary": "#dbfcff",
+            "surface": "#07122a",
+            "background": "#07122a",
+            "on-primary-container": "#006970",
+            "on-tertiary-container": "#525f79",
+            "on-tertiary-fixed": "#0d1c32",
+            "secondary-container": "#0448ff",
+            "secondary": "#b9c3ff",
+            "surface-bright": "#2f3952",
+            "tertiary": "#f4f6ff",
+            "on-tertiary-fixed-variant": "#39475f",
+            "inverse-surface": "#d9e2ff",
+            "surface-container-lowest": "#030d25"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "stack-xs": "4px",
+            "stack-md": "24px",
+            "stack-sm": "12px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "stack-lg": "48px",
+            "unit": "8px",
+            "margin": "32px"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-md": ["Space Grotesk"],
+            "body-md": ["Inter"],
+            "h3": ["Space Grotesk"],
+            "body-lg": ["Inter"],
+            "h1": ["Space Grotesk"],
+            "h2": ["Space Grotesk"],
+            "mono-data": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "0em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+            "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "mono-data": ["14px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="assets/css/site.css" />
+
+  <!-- Nav interactivity -->
+  <script defer src="assets/js/nav.js"></script>
+
+  <style>
+    /* Nav toggle icon swap */
+    .nav-toggle__icon--close { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--open  { display: none; }
+    .site-header[data-open="true"] .nav-toggle__icon--close { display: inline-block; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--color-background);
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 219, 233, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(4, 72, 255, 0.10) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero__model {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero__model canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+
+    .hero__model canvas:active {
+      cursor: grabbing;
+    }
+
+    .hero__model::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 42% 36% at 72% 62%, transparent 0%, rgba(17, 19, 23, 0.16) 62%, rgba(17, 19, 23, 0.58) 100%),
+        linear-gradient(to bottom, rgba(17, 19, 23, 0.30), rgba(17, 19, 23, 0.06) 46%, rgba(17, 19, 23, 0.42));
+      pointer-events: none;
+    }
+
+    .hero__model-fallback {
+      position: absolute;
+      inset: auto 24px 32px;
+      color: var(--color-on-surface-variant);
+      font-family: var(--font-heading);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-align: center;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px var(--space-gutter) 80px;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .hero__content a {
+      pointer-events: auto;
+    }
+
+    .hero__eyebrow {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      margin: 0 0 24px;
+    }
+
+    .hero__h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(40px, 6vw, var(--text-display-xl-size));
+      font-weight: var(--text-display-xl-weight);
+      line-height: var(--text-display-xl-lh);
+      letter-spacing: var(--text-display-xl-ls);
+      color: var(--color-primary);
+      margin: 0 0 24px;
+    }
+
+    .hero__sub {
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+      max-width: 680px;
+      margin: 0 auto 40px;
+    }
+
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    @media (max-width: 760px) {
+      .hero__model {
+        opacity: 0.74;
+      }
+
+      .hero__content {
+        padding-top: 110px;
+      }
+    }
+
+    /* ── Section shared ── */
+    .section-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-gutter);
+    }
+
+    /* ── Pillars ── */
+    .pillars {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0,219,231,0.10);
+      border-bottom: 1px solid rgba(0,219,231,0.10);
+    }
+
+    .pillars__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .pillar-card {
+      padding: 36px 28px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pillar-card__icon {
+      font-size: 40px;
+      color: var(--electric-teal);
+      line-height: 1;
+    }
+
+    .pillar-card__heading {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-md-size);
+      font-weight: var(--text-headline-md-weight);
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .pillar-card__copy {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* ── Product Lines Split ── */
+    .product-split {
+      padding: 80px 0;
+      background: var(--color-background);
+    }
+
+    .product-split__section-label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-align: center;
+      margin: 0 0 48px;
+    }
+
+    .product-split__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .product-split__grid { grid-template-columns: 1fr; }
+    }
+
+    .product-card {
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card__img-wrap {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .product-card__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-card__img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .product-card__body {
+      padding: 32px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .product-card__tag {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+    }
+
+    .product-card__heading {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-lg-size);
+      font-weight: var(--text-headline-lg-weight);
+      line-height: var(--text-headline-lg-lh);
+      letter-spacing: var(--text-headline-lg-ls);
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .product-card__copy {
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+      color: var(--color-on-surface-variant);
+      margin: 0;
+      flex: 1;
+    }
+
+    /* ── How It Works ── */
+    .how-it-works {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0,219,231,0.10);
+    }
+
+    .how-it-works__label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-align: center;
+      margin: 0 0 48px;
+    }
+
+    .steps-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .step-card {
+      padding: 28px 20px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step-card__num {
+      font-family: var(--font-heading);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--electric-teal);
+      opacity: 0.6;
+      line-height: 1;
+    }
+
+    .step-card__label {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-md-size);
+      font-weight: var(--text-headline-md-weight);
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .step-card__copy {
+      font-size: var(--text-body-sm-size, 14px);
+      line-height: 1.5;
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* ── CTA Band ── */
+    /* -- Founders -- */
+    .founders {
+      padding: 80px 0;
+      background: var(--color-background);
+      border-top: 1px solid rgba(0,219,231,0.10);
+    }
+
+    .founders__label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-align: center;
+      margin: 0 0 12px;
+    }
+
+    .founders__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(30px, 4vw, var(--text-headline-lg-size));
+      font-weight: var(--text-headline-lg-weight);
+      line-height: var(--text-headline-lg-lh);
+      letter-spacing: var(--text-headline-lg-ls);
+      color: var(--color-primary);
+      text-align: center;
+      margin: 0 0 16px;
+    }
+
+    .founders__intro {
+      max-width: 680px;
+      margin: 0 auto 48px;
+      text-align: center;
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+    }
+
+    .founders__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 860px) {
+      .founders__grid { grid-template-columns: 1fr; }
+    }
+
+    .founder-card {
+      min-height: 260px;
+      padding: 36px 28px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .founder-card__avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 219, 231, 0.10);
+      border: 1px solid rgba(0, 219, 231, 0.32);
+      box-shadow: 0 0 28px rgba(0, 219, 231, 0.16);
+    }
+
+    .founder-card__avatar .material-symbols-outlined {
+      font-size: 38px;
+      color: var(--electric-teal);
+    }
+
+    .founder-card__name {
+      font-family: var(--font-heading);
+      font-size: var(--text-headline-md-size);
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .founder-card__role {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      margin: 0;
+    }
+
+    /* -- Budget -- */
+    .home-budget {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0,219,231,0.10);
+      border-bottom: 1px solid rgba(0,219,231,0.10);
+    }
+
+    .home-budget__label {
+      font-family: var(--font-heading);
+      font-size: var(--text-label-caps-size);
+      font-weight: var(--text-label-caps-weight);
+      letter-spacing: var(--text-label-caps-ls);
+      text-transform: uppercase;
+      color: var(--electric-teal);
+      text-align: center;
+      margin: 0 0 12px;
+    }
+
+    .home-budget__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(30px, 4vw, var(--text-headline-lg-size));
+      font-weight: var(--text-headline-lg-weight);
+      line-height: var(--text-headline-lg-lh);
+      letter-spacing: var(--text-headline-lg-ls);
+      color: var(--color-primary);
+      text-align: center;
+      margin: 0 0 16px;
+    }
+
+    .home-budget__intro {
+      max-width: 820px;
+      margin: 0 auto 44px;
+      text-align: center;
+      font-size: var(--text-body-lg-size);
+      line-height: var(--text-body-lg-lh);
+      color: var(--color-on-surface-variant);
+    }
+
+    .home-budget__panel {
+      padding: 44px;
+      border-radius: 0.5rem;
+    }
+
+    .home-budget__grid {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.9fr) minmax(150px, 0.55fr) minmax(260px, 1.35fr);
+      gap: 0;
+    }
+
+    .home-budget__cell {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: var(--color-on-surface-variant);
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+    }
+
+    .home-budget__name {
+      color: var(--color-primary);
+      font-weight: 600;
+      padding-right: 20px;
+    }
+
+    .home-budget__range {
+      font-family: var(--font-heading);
+      color: var(--electric-teal);
+      font-weight: 700;
+      padding-right: 20px;
+      white-space: nowrap;
+    }
+
+    .home-budget__total {
+      margin: 34px 0 0;
+      font-family: var(--font-heading);
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.2;
+      color: var(--color-primary);
+      text-align: center;
+    }
+
+    .home-budget__total span {
+      color: var(--electric-teal);
+    }
+
+    .home-budget__notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .home-budget__note {
+      margin: 0;
+      color: var(--color-on-surface-variant);
+      font-size: var(--text-body-md-size);
+      line-height: var(--text-body-md-lh);
+    }
+
+    .home-budget__note strong {
+      color: var(--color-primary);
+    }
+
+    @media (max-width: 820px) {
+      .home-budget__panel { padding: 28px 20px; }
+      .home-budget__grid { grid-template-columns: 1fr; }
+      .home-budget__cell { padding: 8px 0; }
+      .home-budget__name { padding-top: 18px; }
+      .home-budget__notes { grid-template-columns: 1fr; }
+    }
+
+    .cta-band {
+      padding: 80px var(--space-gutter);
+      text-align: center;
+      background: var(--color-background);
+      border-top: 1px solid rgba(0,219,231,0.10);
+    }
+
+    .cta-band__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, var(--text-headline-lg-size));
+      font-weight: var(--text-headline-lg-weight);
+      color: var(--color-primary);
+      margin: 0 0 32px;
+    }
+
+    @media (max-width: 640px) {
+      .hero__ctas { flex-direction: column; align-items: center; }
+      .steps-ribbon { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       SITE HEADER (verbatim from assets/partials/header.html)
+       data-active="home"
+       ═══════════════════════════════════════════════ -->
+  <header class="site-header" data-active="home">
+
+    <!-- Brand / Logo -->
+    <div class="navbar-brand-group">
+    <a class="brand" href="index.html" aria-label="ADAPT // COOL — Home">
+      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+      <span>ADAPT <span>//</span> COOL</span>
+    </a>
+    <span class="navbar-byline" aria-label="Founders and course group">
+      <span class="navbar-byline__full">Osamwonyi Noyiagbon, Leonardo Lopez, Mariano Mccehron | ENG 2575 - Group 3</span>
+      <span class="navbar-byline__short">ENG 2575 - Group 3</span>
+    </span>
+    </div>
+
+    <!-- Primary navigation -->
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html"               data-nav="home">Home</a>
+      <a href="technology.html"          data-nav="technology">Technology</a>
+      <a href="cryo-core/index.html"     data-nav="cryo-core">CRYO-CORE</a>
+      <a href="contact.html"             data-nav="contact">Contact</a>
+    </nav>
+
+    <!-- Hamburger toggle (visible on mobile only) -->
+    <button class="nav-toggle"
+            aria-controls="primary-nav"
+            aria-expanded="false"
+            aria-label="Open navigation">
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--open"  aria-hidden="true">menu</span>
+      <span class="material-symbols-outlined nav-toggle__icon nav-toggle__icon--close" aria-hidden="true">close</span>
+    </button>
+
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 1: HERO
+         ═══════════════════════════════════════════════ -->
+    <section class="hero blueprint-grid" aria-label="Hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__model" id="hero-cooling-model" aria-label="Interactive 3D liquid-cooled PC routing model">
+        <div class="hero__model-fallback" id="hero-model-fallback">Loading cooling route model</div>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__eyebrow">One Platform. Every Scale.</p>
+
+        <h1 class="hero__h1">Predictive Cooling.<br>Adaptive by Design.</h1>
+
+        <p class="hero__sub">
+          AI-driven adaptive liquid cooling that predicts heat spikes before they happen —
+          across desktops, gaming rigs, workstations, and data centers.
+        </p>
+
+        <div class="hero__ctas">
+          <a href="cryo-core/index.html" class="glow-btn">
+            Explore CRYO-CORE &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 2: THREE PILLARS
+         ═══════════════════════════════════════════════ -->
+    <section class="pillars" aria-label="Three pillars">
+      <div class="section-inner">
+        <div class="pillars__grid">
+
+          <!-- Pillar 1: Predict -->
+          <article class="pillar-card glass-panel rim-light">
+            <span class="material-symbols-outlined pillar-card__icon" aria-hidden="true">psychology</span>
+            <h2 class="pillar-card__heading">Predict</h2>
+            <p class="pillar-card__copy">
+              ML models forecast thermal load from temperature, workload, and environment —
+              sensing heat spikes before they occur so the system acts proactively.
+            </p>
+          </article>
+
+          <!-- Pillar 2: Adapt -->
+          <article class="pillar-card glass-panel rim-light">
+            <span class="material-symbols-outlined pillar-card__icon" aria-hidden="true">tune</span>
+            <h2 class="pillar-card__heading">Adapt</h2>
+            <p class="pillar-card__copy">
+              Pump speed, coolant flow, and fan curves adjust in real time —
+              proactive control keeps thermals inside spec with no manual tuning.
+            </p>
+          </article>
+
+          <!-- Pillar 3: Optimize -->
+          <article class="pillar-card glass-panel rim-light">
+            <span class="material-symbols-outlined pillar-card__icon" aria-hidden="true">bolt</span>
+            <h2 class="pillar-card__heading">Optimize</h2>
+            <p class="pillar-card__copy">
+              Performance, energy efficiency, and noise — all dialed in continuously
+              across desktop consumer rigs and cloud-scale enterprise deployments.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 3: TWO PRODUCT LINES SPLIT
+         ═══════════════════════════════════════════════ -->
+    <section class="product-split" aria-label="Product lines">
+      <div class="section-inner">
+        <p class="product-split__section-label">Two Product Lines. One Intelligent Core.</p>
+
+        <div class="product-split__grid">
+
+          <!-- CRYO-CORE (consumer) -->
+          <article class="product-card glass-panel rim-light">
+            <div class="product-card__img-wrap">
+              <img
+                src="assets/img/img-04.jpg"
+                alt="CRYO-CORE liquid cooling unit for desktop and gaming rigs"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+            </div>
+            <div class="product-card__body">
+              <span class="product-card__tag">CRYO-CORE — Consumer</span>
+              <h2 class="product-card__heading">For Desktops, Rigs &amp; Workstations</h2>
+              <p class="product-card__copy">
+                A self-learning AIO that adapts to your workload profile over time.
+                Eco modes cut noise by up to 40 % at idle, while predictive pump curves
+                eliminate thermal throttling during render bursts, gaming sessions,
+                and compiles — all without touching a dial.
+              </p>
+              <a href="cryo-core/index.html" class="glow-btn" style="align-self:flex-start;margin-top:8px;">
+                View CRYO-CORE line &rarr;
+              </a>
+            </div>
+          </article>
+
+          <!-- Enterprise systems -->
+          <article class="product-card glass-panel rim-light">
+            <div class="product-card__img-wrap">
+              <img
+                src="assets/img/img-01.jpg"
+                alt="Enterprise adaptive liquid cooling system inside a data center"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+            </div>
+            <div class="product-card__body">
+              <span class="product-card__tag">Enterprise Systems</span>
+              <h2 class="product-card__heading">For Data Centers &amp; Enterprise Deployments</h2>
+              <p class="product-card__copy">
+                Rack-scale immersive and direct-liquid cooling engineered for
+                hyperscale and colocation operators. Scalable to thousands of nodes,
+                with fleet-wide telemetry, B2B SLA dashboards, and integration
+                with existing DCIM toolchains — turning cooling into a managed,
+                auditable infrastructure service.
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 4: HOW IT WORKS — 4-STEP RIBBON
+         ═══════════════════════════════════════════════ -->
+    <section class="how-it-works" aria-label="How it works">
+      <div class="section-inner">
+        <p class="how-it-works__label">How It Works</p>
+
+        <ol class="steps-ribbon" role="list">
+
+          <li class="step-card glass-panel rim-light">
+            <span class="step-card__num" aria-hidden="true">01</span>
+            <h3 class="step-card__label">Sense</h3>
+            <p class="step-card__copy">
+              Distributed sensor arrays capture temperature, flow rate,
+              ambient conditions, and workload signals every 50 ms.
+            </p>
+          </li>
+
+          <li class="step-card glass-panel rim-light">
+            <span class="step-card__num" aria-hidden="true">02</span>
+            <h3 class="step-card__label">Predict</h3>
+            <p class="step-card__copy">
+              On-device ML models project thermal trajectories 2–5 seconds ahead,
+              flagging spikes before they reach the die.
+            </p>
+          </li>
+
+          <li class="step-card glass-panel rim-light">
+            <span class="step-card__num" aria-hidden="true">03</span>
+            <h3 class="step-card__label">Adapt</h3>
+            <p class="step-card__copy">
+              The controller adjusts pump speed, coolant flow, and fan curves
+              in real time to intercept the predicted thermal event.
+            </p>
+          </li>
+
+          <li class="step-card glass-panel rim-light">
+            <span class="step-card__num" aria-hidden="true">04</span>
+            <h3 class="step-card__label">Learn</h3>
+            <p class="step-card__copy">
+              Each cycle refines the model. The system continuously improves
+              efficiency and accuracy over weeks and months of operation.
+            </p>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 5: CTA BAND
+         ═══════════════════════════════════════════════ -->
+    <!-- SECTION 5: THE FOUNDERS -->
+    <section class="founders" aria-labelledby="founders-heading">
+      <div class="section-inner">
+        <p class="founders__label">Leadership</p>
+        <h2 class="founders__heading" id="founders-heading">The Founders</h2>
+        <p class="founders__intro">
+          The people building the ADAPT // COOL platform and shaping the product vision behind predictive cooling.
+        </p>
+
+        <div class="founders__grid">
+          <article class="founder-card glass-panel rim-light">
+            <div class="founder-card__avatar" aria-hidden="true">
+              <span class="material-symbols-outlined">person</span>
+            </div>
+            <h3 class="founder-card__name">Osamwonyi Noyiagbon</h3>
+            <p class="founder-card__role">Founder</p>
+          </article>
+
+          <article class="founder-card glass-panel rim-light">
+            <div class="founder-card__avatar" aria-hidden="true">
+              <span class="material-symbols-outlined">person</span>
+            </div>
+            <h3 class="founder-card__name">Leonardo Lopez</h3>
+            <p class="founder-card__role">Founder</p>
+          </article>
+
+          <article class="founder-card glass-panel rim-light">
+            <div class="founder-card__avatar" aria-hidden="true">
+              <span class="material-symbols-outlined">person</span>
+            </div>
+            <h3 class="founder-card__name">Mariano Mccehron</h3>
+            <p class="founder-card__role">Founder</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-budget" aria-labelledby="home-budget-heading">
+      <div class="section-inner">
+        <p class="home-budget__label">Startup Budget</p>
+        <h2 class="home-budget__heading" id="home-budget-heading">First-Year Capital Plan</h2>
+        <p class="home-budget__intro">
+          The first-year estimated startup budget ranges between $250,000 and $400,000,
+          allocated across the core work needed to build AI-driven adaptive liquid cooling systems.
+        </p>
+
+        <div class="home-budget__panel glass-panel rim-light">
+          <div class="home-budget__grid" role="table" aria-label="First-year startup budget allocation">
+            <div class="home-budget__cell home-budget__name" role="cell">Research &amp; Development</div>
+            <div class="home-budget__cell home-budget__range" role="cell">$80,000 - $120,000</div>
+            <div class="home-budget__cell" role="cell">Prototype design, AI model development, and testing.</div>
+
+            <div class="home-budget__cell home-budget__name" role="cell">Engineering Team</div>
+            <div class="home-budget__cell home-budget__range" role="cell">$100,000 - $150,000</div>
+            <div class="home-budget__cell" role="cell">A lean team with a hardware engineer, software or AI engineer, and part-time industrial designer.</div>
+
+            <div class="home-budget__cell home-budget__name" role="cell">Prototyping &amp; Manufacturing</div>
+            <div class="home-budget__cell home-budget__range" role="cell">$30,000 - $60,000</div>
+            <div class="home-budget__cell" role="cell">Initial production runs, tooling, materials, and manufacturing preparation.</div>
+
+            <div class="home-budget__cell home-budget__name" role="cell">Branding &amp; Marketing</div>
+            <div class="home-budget__cell home-budget__range" role="cell">$15,000 - $30,000</div>
+            <div class="home-budget__cell" role="cell">Website development, content production, outreach, and launch messaging.</div>
+
+            <div class="home-budget__cell home-budget__name" role="cell">Legal &amp; Business Setup</div>
+            <div class="home-budget__cell home-budget__range" role="cell">$10,000 - $20,000</div>
+            <div class="home-budget__cell" role="cell">Business formation, contracts, compliance, and intellectual property setup.</div>
+
+            <div class="home-budget__cell home-budget__name" role="cell">Software Platform Development</div>
+            <div class="home-budget__cell home-budget__range" role="cell">$10,000 - $20,000</div>
+            <div class="home-budget__cell" role="cell">Desktop/cloud software, telemetry, settings controls, and AI optimization services.</div>
+
+            <div class="home-budget__cell home-budget__name" role="cell" style="border-bottom:0;">Miscellaneous Buffer</div>
+            <div class="home-budget__cell home-budget__range" role="cell" style="border-bottom:0;">$15,000 - $30,000</div>
+            <div class="home-budget__cell" role="cell" style="border-bottom:0;">Recommended reserve for unexpected costs and operational flexibility.</div>
+          </div>
+
+          <p class="home-budget__total">Estimated total: <span>$250,000 - $400,000</span></p>
+
+          <div class="home-budget__notes">
+            <p class="home-budget__note">
+              <strong>Revenue opportunities:</strong> cooling kits priced between $150 and $500,
+              optional subscriptions for advanced AI optimization, and B2B partnerships with PC manufacturers
+              and data center operators.
+            </p>
+            <p class="home-budget__note">
+              <strong>Risk and moat:</strong> hardware startups face high upfront costs, longer development cycles,
+              and established competitors, so the defensible advantage is the AI-driven software ecosystem rather than hardware alone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-label="Call to action">
+      <h2 class="cta-band__heading">Build the future of cooling with us.</h2>
+      <a href="contact.html" class="glow-btn">
+        Contact us &rarr;
+      </a>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       SITE FOOTER (verbatim from assets/partials/footer.html)
+       ═══════════════════════════════════════════════ -->
+  <footer class="site-footer">
+
+    <div class="site-footer__inner">
+
+      <!-- Brand block -->
+      <div class="site-footer__brand">
+        <a class="brand" href="index.html" aria-label="ADAPT // COOL — Home">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:28px;color:var(--electric-teal);">ac_unit</span>
+          <span>ADAPT <span>//</span> COOL</span>
+        </a>
+        <p>Predictive intelligence for liquid cooling.</p>
+      </div>
+
+      <!-- Column 1: Product -->
+      <div class="site-footer__col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="cryo-core/index.html">CRYO-CORE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Company -->
+      <div class="site-footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal -->
+      <div class="site-footer__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="contact.html#privacy">Privacy</a></li>
+          <li><a href="contact.html#terms">Terms</a></li>
+          <li><a href="contact.html#docs">Docs</a></li>
+          <li><a href="contact.html#investors">Investors</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom row -->
+    <div class="site-footer__bottom">
+      <span>&copy; 2026 ADAPT // COOL &middot; All rights reserved.</span>
+      <nav class="site-footer__bottom-links" aria-label="Legal links">
+        <a href="contact.html#privacy">Privacy</a>
+        <a href="contact.html#terms">Terms</a>
+        <a href="contact.html#docs">Docs</a>
+        <a href="contact.html#investors">Investors</a>
+      </nav>
+    </div>
+
+  </footer>
+
+  <script type="module">
+    import * as THREE from 'https://esm.sh/three@0.165.0';
+    import { OrbitControls } from 'https://esm.sh/three@0.165.0/examples/jsm/controls/OrbitControls.js';
+
+    const stage = document.getElementById('hero-cooling-model');
+    const fallback = document.getElementById('hero-model-fallback');
+
+    const scene = new THREE.Scene();
+    scene.background = null;
+    scene.fog = new THREE.Fog(0x111317, 8, 18);
+
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    stage.prepend(renderer.domElement);
+    fallback.hidden = true;
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.075;
+    controls.enablePan = false;
+    controls.enableZoom = false;
+    controls.minDistance = 4.6;
+    controls.maxDistance = 9.5;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.32;
+
+    const root = new THREE.Group();
+    const tubeGroup = new THREE.Group();
+    const coolantGroup = new THREE.Group();
+    root.add(tubeGroup, coolantGroup);
+    scene.add(root);
+
+    const materials = {
+      graphite: new THREE.MeshStandardMaterial({ color: 0x1c2229, metalness: 0.72, roughness: 0.32 }),
+      matte: new THREE.MeshStandardMaterial({ color: 0x090d12, metalness: 0.28, roughness: 0.52 }),
+      board: new THREE.MeshStandardMaterial({ color: 0x0e2024, metalness: 0.38, roughness: 0.42 }),
+      plate: new THREE.MeshStandardMaterial({ color: 0x9fb3bc, metalness: 0.86, roughness: 0.24 }),
+      glass: new THREE.MeshPhysicalMaterial({
+        color: 0x80f7ff,
+        transparent: true,
+        opacity: 0.28,
+        transmission: 0.22,
+        roughness: 0.06,
+        metalness: 0,
+        thickness: 0.22
+      }),
+      tube: new THREE.MeshStandardMaterial({
+        color: 0x1eeefa,
+        emissive: 0x00aeba,
+        emissiveIntensity: 1.08,
+        metalness: 0.04,
+        roughness: 0.18
+      }),
+      coolant: new THREE.MeshStandardMaterial({
+        color: 0x7df4ff,
+        emissive: 0x00dbe7,
+        emissiveIntensity: 2.7,
+        metalness: 0,
+        roughness: 0.18
+      }),
+      fan: new THREE.MeshStandardMaterial({ color: 0x111821, metalness: 0.55, roughness: 0.34 })
+    };
+
+    const hemi = new THREE.HemisphereLight(0xdffcff, 0x05080c, 1.55);
+    scene.add(hemi);
+
+    const key = new THREE.DirectionalLight(0xffffff, 2.4);
+    key.position.set(2.8, 4.5, 5.2);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    scene.add(key);
+
+    const cyanKey = new THREE.PointLight(0x00dbe7, 8.5, 8.5);
+    cyanKey.position.set(-2.8, 1.2, 2.8);
+    scene.add(cyanKey);
+
+    const rearGlow = new THREE.PointLight(0x4cc9f0, 4.4, 7);
+    rearGlow.position.set(2.8, 1.8, -2.6);
+    scene.add(rearGlow);
+
+    function makeMesh(geometry, material, position, rotation) {
+      const mesh = new THREE.Mesh(geometry, material);
+      if (position) mesh.position.copy(position);
+      if (rotation) mesh.rotation.set(rotation.x || 0, rotation.y || 0, rotation.z || 0);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      return mesh;
+    }
+
+    function roundedBox(width, height, depth, radius) {
+      const shape = new THREE.Shape();
+      const x = -width / 2;
+      const y = -height / 2;
+      shape.moveTo(x + radius, y);
+      shape.lineTo(x + width - radius, y);
+      shape.quadraticCurveTo(x + width, y, x + width, y + radius);
+      shape.lineTo(x + width, y + height - radius);
+      shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      shape.lineTo(x + radius, y + height);
+      shape.quadraticCurveTo(x, y + height, x, y + height - radius);
+      shape.lineTo(x, y + radius);
+      shape.quadraticCurveTo(x, y, x + radius, y);
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth,
+        bevelEnabled: true,
+        bevelThickness: radius * 0.35,
+        bevelSize: radius * 0.35,
+        bevelSegments: 2
+      });
+      geometry.center();
+      return geometry;
+    }
+
+    function makeFan(x, y, z, scale = 1) {
+      const fan = new THREE.Group();
+      fan.add(makeMesh(new THREE.TorusGeometry(0.34 * scale, 0.035 * scale, 12, 52), materials.fan, new THREE.Vector3()));
+      fan.add(makeMesh(new THREE.CylinderGeometry(0.08 * scale, 0.08 * scale, 0.05 * scale, 28), materials.graphite, new THREE.Vector3(), { x: Math.PI / 2 }));
+      for (let i = 0; i < 7; i += 1) {
+        const blade = makeMesh(new THREE.BoxGeometry(0.22 * scale, 0.026 * scale, 0.054 * scale), materials.plate, new THREE.Vector3(0.15 * scale, 0, 0), { z: i * Math.PI / 3.5 + 0.28 });
+        blade.geometry.translate(0.05 * scale, 0, 0);
+        fan.add(blade);
+      }
+      fan.position.set(x, y, z);
+      return fan;
+    }
+
+    function addTube(points) {
+      const curve = new THREE.CatmullRomCurve3(points);
+      const tube = makeMesh(new THREE.TubeGeometry(curve, 96, 0.035, 12, false), materials.tube, new THREE.Vector3());
+      tubeGroup.add(tube);
+
+      const marker = makeMesh(new THREE.SphereGeometry(0.085, 18, 18), materials.coolant, new THREE.Vector3());
+      marker.userData.curve = curve;
+      marker.userData.offset = coolantGroup.children.length * 0.26;
+      coolantGroup.add(marker);
+    }
+
+    function buildCoolingPc() {
+      const caseGroup = new THREE.Group();
+
+      const backPlate = makeMesh(roundedBox(2.8, 3.2, 0.08, 0.08), materials.graphite, new THREE.Vector3(0, 0, -0.12));
+      const glassPanel = makeMesh(roundedBox(2.95, 3.35, 0.05, 0.09), materials.glass, new THREE.Vector3(0.03, 0, 0.42));
+      const motherboard = makeMesh(roundedBox(1.36, 1.88, 0.06, 0.04), materials.board, new THREE.Vector3(-0.34, 0.08, 0.05));
+      const cpuBlock = makeMesh(new THREE.CylinderGeometry(0.24, 0.24, 0.14, 42), materials.glass, new THREE.Vector3(-0.42, 0.34, 0.28), { x: Math.PI / 2 });
+      const cpuRing = makeMesh(new THREE.TorusGeometry(0.26, 0.018, 12, 64), materials.coolant, new THREE.Vector3(-0.42, 0.34, 0.36));
+      const gpuBlock = makeMesh(roundedBox(1.12, 0.34, 0.16, 0.035), materials.glass, new THREE.Vector3(-0.19, -0.55, 0.25));
+      const gpuPlate = makeMesh(roundedBox(1.36, 0.24, 0.12, 0.03), materials.graphite, new THREE.Vector3(-0.1, -0.74, 0.14));
+      const reservoir = makeMesh(new THREE.CylinderGeometry(0.18, 0.18, 1.26, 42), materials.glass, new THREE.Vector3(0.95, 0.1, 0.18));
+      const pump = makeMesh(new THREE.CylinderGeometry(0.24, 0.28, 0.22, 42), materials.graphite, new THREE.Vector3(0.95, -0.7, 0.18), { x: Math.PI / 2 });
+      const radiator = makeMesh(roundedBox(2.02, 0.64, 0.18, 0.04), materials.graphite, new THREE.Vector3(0, 1.25, 0.12));
+
+      caseGroup.add(backPlate, glassPanel, motherboard, cpuBlock, cpuRing, gpuBlock, gpuPlate, reservoir, pump, radiator);
+
+      for (let i = 0; i < 3; i += 1) {
+        caseGroup.add(makeFan(-0.66 + i * 0.66, 1.25, 0.27, 0.78));
+      }
+
+      for (let i = 0; i < 5; i += 1) {
+        const ram = makeMesh(new THREE.BoxGeometry(0.055, 0.72, 0.055), materials.plate, new THREE.Vector3(-0.9 + i * 0.08, 0.26, 0.22));
+        caseGroup.add(ram);
+      }
+
+      const ports = [
+        new THREE.Vector3(0.95, -0.55, 0.34),
+        new THREE.Vector3(0.95, 0.74, 0.34),
+        new THREE.Vector3(-0.42, 0.34, 0.42),
+        new THREE.Vector3(-0.1, -0.55, 0.43)
+      ];
+      ports.forEach((position) => {
+        caseGroup.add(makeMesh(new THREE.CylinderGeometry(0.06, 0.06, 0.08, 24), materials.coolant, position, { x: Math.PI / 2 }));
+      });
+
+      root.add(caseGroup);
+
+      addTube([
+        new THREE.Vector3(0.95, -0.55, 0.34),
+        new THREE.Vector3(0.82, -0.88, 0.68),
+        new THREE.Vector3(-0.14, -0.88, 0.68),
+        new THREE.Vector3(-0.1, -0.55, 0.43)
+      ]);
+      addTube([
+        new THREE.Vector3(-0.1, -0.55, 0.43),
+        new THREE.Vector3(-0.82, -0.28, 0.74),
+        new THREE.Vector3(-0.42, 0.34, 0.42)
+      ]);
+      addTube([
+        new THREE.Vector3(-0.42, 0.34, 0.42),
+        new THREE.Vector3(-0.1, 0.85, 0.72),
+        new THREE.Vector3(0.72, 0.98, 0.54),
+        new THREE.Vector3(0.95, 0.74, 0.34)
+      ]);
+      addTube([
+        new THREE.Vector3(0.95, 0.74, 0.34),
+        new THREE.Vector3(0.46, 1.55, 0.58),
+        new THREE.Vector3(-0.76, 1.55, 0.58),
+        new THREE.Vector3(-0.84, 1.26, 0.26)
+      ]);
+    }
+
+    function resize() {
+      const width = stage.clientWidth;
+      const height = stage.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
+
+      const mobile = width < 760;
+      camera.position.set(mobile ? 0.2 : 4.15, mobile ? 1.45 : 2.35, mobile ? 7.25 : 7.0);
+      controls.target.set(mobile ? 0 : 0.22, mobile ? 0.06 : 0.14, 0.14);
+      root.position.set(mobile ? 0 : 1.05, mobile ? -1.35 : -1.05, 0);
+      root.scale.setScalar(mobile ? 0.76 : 0.98);
+      controls.update();
+    }
+
+    buildCoolingPc();
+    resize();
+    new ResizeObserver(resize).observe(stage);
+
+    function animate(time) {
+      requestAnimationFrame(animate);
+      const seconds = time * 0.001;
+      coolantGroup.children.forEach((marker) => {
+        const curve = marker.userData.curve;
+        const t = (seconds * 0.22 + marker.userData.offset) % 1;
+        marker.position.copy(curve.getPointAt(t));
+        marker.scale.setScalar(0.78 + Math.sin(seconds * 5 + marker.userData.offset * 8) * 0.18);
+      });
+      root.rotation.y = Math.sin(seconds * 0.34) * 0.09;
+      root.rotation.x = Math.sin(seconds * 0.22) * 0.025;
+      cyanKey.intensity = 7.4 + Math.sin(seconds * 2.2) * 1.1;
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate(0);
+  </script>
+
+</body>
+</html>
