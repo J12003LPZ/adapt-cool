@@ -269,6 +269,50 @@
       padding: 0 var(--space-gutter);
     }
 
+    .feature-video {
+      padding: 80px 0;
+      background: var(--color-surface-container-lowest);
+      border-top: 1px solid rgba(0,219,231,0.10);
+      border-bottom: 1px solid rgba(0,219,231,0.10);
+    }
+
+    .feature-video__frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(0,219,231,0.22);
+      background: var(--color-surface);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34), 0 0 42px rgba(0, 219, 231, 0.10);
+    }
+
+    .feature-video__title {
+      font-family: var(--font-heading);
+      font-size: clamp(30px, 4vw, var(--text-headline-lg-size));
+      font-weight: var(--text-headline-lg-weight);
+      line-height: var(--text-headline-lg-lh);
+      letter-spacing: var(--text-headline-lg-ls);
+      color: var(--color-primary);
+      text-align: center;
+      margin: 0 0 32px;
+    }
+
+    .feature-video__frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .feature-video__media {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--color-background);
+    }
+
     /* ── Pillars ── */
     .pillars {
       padding: 80px 0;
@@ -753,6 +797,18 @@
     <!-- ═══════════════════════════════════════════════
          SECTION 2: THREE PILLARS
          ═══════════════════════════════════════════════ -->
+    <section class="feature-video" aria-label="ADAPT COOL system video">
+      <div class="section-inner">
+        <h2 class="feature-video__title">Video Presentation</h2>
+        <div class="feature-video__frame">
+          <video class="feature-video__media" controls preload="metadata">
+            <source src="assets/video/video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </section>
+
     <section class="pillars" aria-label="Three pillars">
       <div class="section-inner">
         <div class="pillars__grid">
